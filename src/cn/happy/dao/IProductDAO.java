@@ -1,10 +1,9 @@
 package cn.happy.dao;
 
 
-import cn.happy.bean.Easybuy_product;
+import cn.happy.util.CategoryUtil;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 用户信息接口层
@@ -12,7 +11,7 @@ import java.util.Map;
  */
 public interface IProductDAO {
 
-    int getProductRecords(Map<String, String> params) throws Exception;
 
-    List<Easybuy_product> getProductList(int pageIndex, int pageSize, Map<String, String> params) throws Exception;
+    List<CategoryUtil> getCategories() throws Exception;
+
 }

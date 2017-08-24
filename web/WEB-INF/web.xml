@@ -31,14 +31,14 @@
         <filter-class>cn.happy.filter.LoginFilter</filter-class>
         <init-param>
             <param-name>excludedURL</param-name>
-            <param-value>/servlet/(Login|Register)Servlet</param-value>
+            <param-value>/servlet/(Login|Register|Product)Servlet</param-value>
         </init-param>
     </filter>
 
     <!--ProductServlet-->
     <servlet-mapping>
         <servlet-name>ProductServlet</servlet-name>
-        <url-pattern>/servlet/Product</url-pattern>
+        <url-pattern>/servlet/ProductServlet</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>ProductServlet</servlet-name>
@@ -67,6 +67,6 @@
 
     <!--welcome-->
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>servlet/ProductServlet</welcome-file>
     </welcome-file-list>
 </web-app>

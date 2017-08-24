@@ -31,11 +31,9 @@ public class Log4jInit extends HttpServlet {
             istream.close();
             String DebugLogFile = prefix + props.getProperty("log4j.appender.D.File");//设置路径
             props.setProperty("log4j.appender.D.File", DebugLogFile);
-            String ErrotLogFile = prefix + props.getProperty("log4j.appender.E.File");//设置路径
-            props.setProperty("log4j.appender.E.File", ErrotLogFile);
+            String ErrorLogFile = prefix + props.getProperty("log4j.appender.E.File");//设置路径
+            props.setProperty("log4j.appender.E.File", ErrorLogFile);
             PropertyConfigurator.configure(props);
-            logger.debug("this is a debug");
-            logger.error("just a test");
         } catch (IOException e) {
             System.out.println("Could not read configuration file [" + filePath + "].");
             System.out.println("Ignoring configuration file [" + filePath + "].");

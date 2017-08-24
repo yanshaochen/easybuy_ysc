@@ -106,8 +106,7 @@ public class SomeConverts {
 
     public String ConvertToRelativePath(String absolutePath) {
         if (absolutePath != null)
-            return absolutePath.lastIndexOf("/") == -1 ? "" : absolutePath.substring(absolutePath.lastIndexOf("/") + 1);
-        else
-            return "";
+            return absolutePath.lastIndexOf("/") == -1 ? null : absolutePath.substring(absolutePath.lastIndexOf("/") + 1);
+        return null;
     }
 }
