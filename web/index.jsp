@@ -207,14 +207,14 @@
         </div>
         <!--End 商品分类详情 End-->
         <ul class="menu_r">
-            <li><a href="Index.html">首页</a></li>
-            <li><a href="Food.html">美食</a></li>
-            <li><a href="Fresh.html">生鲜</a></li>
-            <li><a href="HomeDecoration.html">家居</a></li>
-            <li><a href="SuitDress.html">女装</a></li>
-            <li><a href="MakeUp.html">美妆</a></li>
-            <li><a href="Digital.html">数码</a></li>
-            <li><a href="GroupBuying.html">团购</a></li>
+            <li><a href="${path}/servlet/ProductServlet">首页</a></li>
+            <li><a href="${path}/servlet/ListServlet">美食</a></li>
+            <li><a href="${path}/servlet/ListServlet">生鲜</a></li>
+            <li><a href="${path}/servlet/ListServlet">家居</a></li>
+            <li><a href="${path}/servlet/ListServlet">女装</a></li>
+            <li><a href="${path}/servlet/ListServlet">美妆</a></li>
+            <li><a href="${path}/servlet/ListServlet">数码</a></li>
+            <li><a href="${path}/servlet/ListServlet">团购</a></li>
         </ul>
         <div class="m_ad">中秋送好礼！</div>
     </div>
@@ -225,9 +225,9 @@
         <div class="cate_nav">
             <c:forEach var="item" items="${categories}">
                 <dl>
-                    <dt><a href="#">${item.parentName}</a></dt>
+                    <dt><a href="">${item.parentName}</a></dt>
                     <c:forEach var="subitem" items="${item.categories}">
-                        <dd><a href="#">${subitem}</a></dd>
+                        <dd><a href="${path}/servlet/ListServlet?category=${subitem}">${subitem}</a></dd>
                     </c:forEach>
                 </dl>
             </c:forEach>
@@ -276,86 +276,25 @@
                 <div id="block1">
                     <div id="botton-scroll1">
                         <ul class="featureUL">
-                            <li class="featureBox">
-                                <div class="box">
-                                    <div class="imgbg">
-                                        <a href="#"><img src="images/bk_1.jpg" width="160" height="136"/></a>
+                            <c:forEach var="item" items="${top10}">
+                                <li class="featureBox">
+                                    <div class="box">
+                                        <div class="imgbg">
+                                            <a href="#"><img src="${path}/product_images/${item.ep_img}" width="160"
+                                                             height="136"/></a>
+                                        </div>
+                                        <div class="name">
+                                            <a href="#">
+                                                <h2>${item.ep_title}</h2>
+                                                    ${item.ep_name}
+                                            </a>
+                                        </div>
+                                        <div class="price">
+                                            <font>￥<span>${item.ep_price}</span></font> &nbsp;
+                                        </div>
                                     </div>
-                                    <div class="name">
-                                        <a href="#">
-                                            <h2>德国进口</h2>
-                                            德亚全脂纯牛奶200ml*48盒
-                                        </a>
-                                    </div>
-                                    <div class="price">
-                                        <font>￥<span>189</span></font> &nbsp; 26R
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="featureBox">
-                                <div class="box">
-                                    <div class="imgbg">
-                                        <a href="#"><img src="images/bk_2.jpg" width="160" height="136"/></a>
-                                    </div>
-                                    <div class="name">
-                                        <a href="#">
-                                            <h2>iphone 6S</h2>
-                                            Apple/苹果 iPhone 6s Plus公开版
-                                        </a>
-                                    </div>
-                                    <div class="price">
-                                        <font>￥<span>5288</span></font> &nbsp; 25R
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="featureBox">
-                                <div class="box">
-                                    <div class="imgbg">
-                                        <a href="#"><img src="images/bk_3.jpg" width="160" height="136"/></a>
-                                    </div>
-                                    <div class="name">
-                                        <a href="#">
-                                            <h2>倩碧特惠组合套装</h2>
-                                            倩碧补水组合套装8折促销
-                                        </a>
-                                    </div>
-                                    <div class="price">
-                                        <font>￥<span>368</span></font> &nbsp; 18R
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="featureBox">
-                                <div class="box">
-                                    <div class="imgbg">
-                                        <a href="#"><img src="images/bk_4.jpg" width="160" height="136"/></a>
-                                    </div>
-                                    <div class="name">
-                                        <a href="#">
-                                            <h2>品利特级橄榄油</h2>
-                                            750ml*4瓶装组合 西班牙原装进口
-                                        </a>
-                                    </div>
-                                    <div class="price">
-                                        <font>￥<span>280</span></font> &nbsp; 30R
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="featureBox">
-                                <div class="box">
-                                    <div class="imgbg">
-                                        <a href="#"><img src="images/bk_5.jpg" width="160" height="136"/></a>
-                                    </div>
-                                    <div class="name">
-                                        <a href="#">
-                                            <h2>品利特级橄榄油</h2>
-                                            750ml*4瓶装组合 西班牙原装进口
-                                        </a>
-                                    </div>
-                                    <div class="price">
-                                        <font>￥<span>280</span></font> &nbsp; 30R
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>
@@ -699,6 +638,5 @@
     </div>
     <!--End Footer End -->
 </div>
-
 </body>
 </html>

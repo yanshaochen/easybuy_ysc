@@ -21,17 +21,20 @@ public class Log4jInit extends HttpServlet {
     }
 
     public void init(ServletConfig config) throws ServletException {
+        //get the real path until / -> RealPath/
         String prefix = config.getServletContext().getRealPath("/");
+        //file="WEB-INF/log4j.properties"
         String file = config.getInitParameter("log4j");
+        //the path is RealPath/WEB-INF/log4j.properties
         String filePath = prefix + file;
         Properties props = new Properties();
         try {
             FileInputStream istream = new FileInputStream(filePath);
             props.load(istream);
             istream.close();
-            String DebugLogFile = prefix + props.getProperty("log4j.appender.D.File");//设置路径
+            String DebugLogFile = prefix + props.getProperty("log4j.appender.D.File");
             props.setProperty("log4j.appender.D.File", DebugLogFile);
-            String ErrorLogFile = prefix + props.getProperty("log4j.appender.E.File");//设置路径
+            String ErrorLogFile = prefix + props.getProperty("log4j.appender.E.File");
             props.setProperty("log4j.appender.E.File", ErrorLogFile);
             PropertyConfigurator.configure(props);
         } catch (IOException e) {

@@ -1,7 +1,10 @@
 package cn.happy.filter;
 
+import org.apache.log4j.Logger;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -10,9 +13,12 @@ import java.util.regex.Pattern;
 /**
  * Created by master on 17-8-22.
  */
-@WebFilter(filterName = "LoginFilter")
-public class LoginFilter implements Filter {
+@WebFilter(filterName = "AdminLoginFilter", urlPatterns = {"/background_jsp/*"}, initParams = {
+        @WebInitParam(name = "excludedURL", value = "/servlet/LoginServlet")
+})
+public class AdminLoginFilter implements Filter {
 
+    private Logger logger = Logger.getLogger(AdminLoginFilter.class);
     private Pattern excludedURL;
 
     public void destroy() {
@@ -26,11 +32,12 @@ public class LoginFilter implements Filter {
             chain.doFilter(req, resp);
             return;
         }
-        Object login_permission = request.getSession().getAttribute("login_permission");
+        String login_permission = (String) request.getSession().getAttribute("login_permission");
+        logger.debug("the admin permission is: " + login_permission);
         if (login_permission != null) {
             chain.doFilter(req, resp);
         } else {
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
+            response.sendRedirect(request.getContextPath() + "/easybuy.jsp");
         }
     }
 

@@ -1,5 +1,7 @@
 package cn.happy.filter;
 
+import org.apache.log4j.Logger;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
@@ -7,8 +9,9 @@ import java.io.IOException;
 /**
  * Created by master on 17-8-22.
  */
-@WebFilter(filterName = "EncodeFilter")
+@WebFilter(filterName = "EncodeFilter", urlPatterns = {"/servlet/*", "/jsp/*", "/background_jsp/*", "*.jsp"})
 public class EncodeFilter implements Filter {
+
     public void destroy() {
     }
 
@@ -19,7 +22,6 @@ public class EncodeFilter implements Filter {
     }
 
     public void init(FilterConfig config) throws ServletException {
-
     }
 
 }

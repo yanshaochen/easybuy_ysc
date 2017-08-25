@@ -14,9 +14,9 @@ import java.sql.ResultSet;
  */
 public class BaseDAO {
     //three source
-    private Connection con;
-    private PreparedStatement ps;
-    private ResultSet rs;
+    protected Connection con;
+    protected PreparedStatement ps;
+    protected ResultSet rs;
 
     //get connection
     public Connection getCon() throws Exception {

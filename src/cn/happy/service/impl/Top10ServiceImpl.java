@@ -1,22 +1,21 @@
 package cn.happy.service.impl;
 
+import cn.happy.bean.Easybuy_product;
 import cn.happy.dao.IProductDAO;
 import cn.happy.dao.impl.ProductDAOImpl;
-import cn.happy.service.ICategoryService;
-import cn.happy.util.CategoryUtil;
+import cn.happy.service.ITop10Service;
 
 import java.util.List;
-import java.util.Map;
 
 /**
- * Created by master on 17-8-24.
+ * Created by master on 17-8-25.
  */
-public class CategoryServiceImpl implements ICategoryService {
+public class Top10ServiceImpl implements ITop10Service {
     @Override
-    public List<CategoryUtil> getCategories() {
+    public List<Easybuy_product> getTop10() {
         IProductDAO dao = new ProductDAOImpl();
         try {
-            return dao.getCategories();
+            return dao.getTop10();
         } catch (Exception e) {
             e.printStackTrace();
         }

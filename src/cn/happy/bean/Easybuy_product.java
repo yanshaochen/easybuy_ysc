@@ -8,6 +8,18 @@ public class Easybuy_product {
     private Long ep_stock;
     private Long ep_category_id;
     private String ep_img;
+    private String ep_brand;
+    private Long ep_isgroup;
+    private Long ep_istop10;
+    private String ep_title;
+
+    public String getEp_title() {
+        return ep_title;
+    }
+
+    public void setEp_title(String ep_title) {
+        this.ep_title = ep_title;
+    }
 
     public Long getEp_id() {
         return ep_id;
@@ -63,5 +75,29 @@ public class Easybuy_product {
 
     public void setEp_img(String ep_img) {
         this.ep_img = ep_img;
+    }
+
+    public String getEp_brand() {
+        return ep_brand;
+    }
+
+    public void setEp_brand(String ep_brand) {
+        this.ep_brand = ep_brand;
+    }
+
+    public Long getEp_isgroup() {
+        return ep_isgroup;
+    }
+
+    public void setEp_isgroup(Long ep_isgroup) {
+        this.ep_isgroup = ep_isgroup;
+    }
+
+    public Long getEp_istop10() {
+        return ep_istop10;
+    }
+
+    public void setEp_istop10(Long ep_istop10) {
+        this.ep_istop10 = ep_istop10;
     }
 }

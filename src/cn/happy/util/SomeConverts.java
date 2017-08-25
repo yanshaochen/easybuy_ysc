@@ -87,13 +87,13 @@ public class SomeConverts {
                 }
             } else {
                 fileName = String.valueOf(System.currentTimeMillis()) + item.getName().substring(item.getName().lastIndexOf("."));
-                leftPath = servletContext.getRealPath("/bookimg/");
+                leftPath = servletContext.getRealPath("/images/");
                 //upload empty or not
                 if (item.getName() != null && !item.getName().equals("")) {
                     File file = new File(leftPath, fileName);
                     try {
                         item.write(file);
-                        param.put(item.getFieldName(), leftPath + "/" + fileName);
+                        param.put(item.getFieldName(), fileName);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

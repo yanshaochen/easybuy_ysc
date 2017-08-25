@@ -1,6 +1,7 @@
 package cn.happy.dao;
 
 
+import cn.happy.bean.Easybuy_product;
 import cn.happy.util.CategoryUtil;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface IProductDAO {
 
     List<CategoryUtil> getCategories() throws Exception;
 
+    List<Easybuy_product> getTop10() throws Exception;
 }

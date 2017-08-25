@@ -1,6 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<%--
+  Created by IntelliJ IDEA.
+  User: master
+  Date: 17-8-25
+  Time: 上午12:20
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link type="text/css" rel="stylesheet" href="css/style.css"/>
@@ -110,7 +116,7 @@
                                 <li><a href="#">我的收藏夹</a></li>
                             </ul>
                         </div>
-                    </div>     
+                    </div>
                 </div>
                 <div class="ss_list">
                 	<a href="#">客户服务</a>
@@ -123,7 +129,7 @@
                                 <li><a href="#">客户服务</a></li>
                             </ul>
                         </div>
-                    </div>    
+                    </div>
                 </div>
                 <div class="ss_list">
                 	<a href="#">网站导航</a>
@@ -135,7 +141,7 @@
                                 <li><a href="#">网站导航</a></li>
                             </ul>
                         </div>
-                    </div>    
+                    </div>
                 </div>
             </span>
             <span class="fl">|&nbsp;关注我们：</span>
@@ -567,14 +573,14 @@
             	<span class="fl list_or">
                 	<a href="#" class="now">默认</a>
                     <a href="#">
-                    	<span class="fl">销量</span>                        
+                    	<span class="fl">销量</span>
                         <span class="i_up">销量从低到高显示</span>
-                        <span class="i_down">销量从高到低显示</span>                                                     
+                        <span class="i_down">销量从高到低显示</span>
                     </a>
                     <a href="#">
-                    	<span class="fl">价格</span>                        
+                    	<span class="fl">价格</span>
                         <span class="i_up">价格从低到高显示</span>
-                        <span class="i_down">价格从高到低显示</span>     
+                        <span class="i_down">价格从高到低显示</span>
                     </a>
                     <a href="#">新品</a>
                 </span>
@@ -907,5 +913,4 @@
 </div>
 
 </body>
-
 </html>

@@ -1,8 +1,11 @@
 package cn.happy.dao.impl;
 
+import cn.happy.bean.Easybuy_news;
+import cn.happy.bean.Easybuy_product;
 import cn.happy.dao.BaseDAO;
 import cn.happy.dao.IProductDAO;
 import cn.happy.util.CategoryUtil;
+import cn.happy.util.SomeConverts;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -31,6 +34,8 @@ public class ProductDAOImpl extends BaseDAO implements IProductDAO {
                 categories.get(epc_parent_id).add(resultSet.getString("epc_name"));
             }
         }
+        resultSet.close();
+        closeResources();
         for (Integer item : categories.keySet()
                 ) {
             CategoryUtil categoryUtil = new CategoryUtil();
@@ -40,5 +45,16 @@ public class ProductDAOImpl extends BaseDAO implements IProductDAO {
             categoryUtils.add(categoryUtil);
         }
         return categoryUtils;
+    }
+
+    @Override
+    public List<Easybuy_product> getTop10() throws Exception {
+        String sql = "select * from easybuy_product where ep_istop10!=0 order by ep_istop10 asc limit 10;";
+        ResultSet resultSet = executeQuery(sql);
+        SomeConverts rsToGeneric = new SomeConverts();
+        List<Easybuy_product> top10 = rsToGeneric.ResultSetToGenerics(resultSet, Easybuy_product.class);
+        resultSet.close();
+        closeResources();
+        return top10;
     }
 }
