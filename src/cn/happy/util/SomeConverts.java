@@ -103,10 +103,4 @@ public class SomeConverts {
         }
         return param;
     }
-
-    public String ConvertToRelativePath(String absolutePath) {
-        if (absolutePath != null)
-            return absolutePath.lastIndexOf("/") == -1 ? null : absolutePath.substring(absolutePath.lastIndexOf("/") + 1);
-        return null;
-    }
 }

@@ -11,20 +11,16 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link type="text/css" rel="stylesheet" href="css/style.css"/>
-    <script type="text/javascript" src="js/jquery-1.11.1.min_044d0927.js"></script>
-    <script type="text/javascript" src="js/jquery.bxslider_e88acd1b.js"></script>
-
-    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
-    <script type="text/javascript" src="js/menu.js"></script>
-
-    <script type="text/javascript" src="js/lrscroll_1.js"></script>
-
-
-    <script type="text/javascript" src="js/n_nav.js"></script>
-    <script type="text/javascript" src="js/milk_ban.js"></script>
-    <script type="text/javascript" src="js/paper_ban.js"></script>
-    <script type="text/javascript" src="js/baby_ban.js"></script>
+    <link type="text/css" rel="stylesheet" href="${path}/css/style.css"/>
+    <script type="text/javascript" src="${path}/js/jquery-1.11.1.min_044d0927.js"></script>
+    <script type="text/javascript" src="${path}/js/jquery.bxslider_e88acd1b.js"></script>
+    <script type="text/javascript" src="${path}/js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="${path}/js/menu.js"></script>
+    <script type="text/javascript" src="${path}/js/lrscroll_1.js"></script>
+    <script type="text/javascript" src="${path}/js/n_nav.js"></script>
+    <script type="text/javascript" src="${path}/js/milk_ban.js"></script>
+    <script type="text/javascript" src="${path}/js/paper_ban.js"></script>
+    <script type="text/javascript" src="${path}/js/baby_ban.js"></script>
 
     <title>易买网</title>
 </head>
@@ -207,14 +203,14 @@
         </div>
         <!--End 商品分类详情 End-->
         <ul class="menu_r">
-            <li><a href="${path}/servlet/ProductServlet">首页</a></li>
-            <li><a href="${path}/servlet/ListServlet">美食</a></li>
-            <li><a href="${path}/servlet/ListServlet">生鲜</a></li>
-            <li><a href="${path}/servlet/ListServlet">家居</a></li>
-            <li><a href="${path}/servlet/ListServlet">女装</a></li>
-            <li><a href="${path}/servlet/ListServlet">美妆</a></li>
-            <li><a href="${path}/servlet/ListServlet">数码</a></li>
-            <li><a href="${path}/servlet/ListServlet">团购</a></li>
+            <li><a href="${path}/UserServlet/ProductServlet">首页</a></li>
+            <li><a href="${path}/UserServlet/ListServlet">美食</a></li>
+            <li><a href="${path}/UserServlet/ListServlet">生鲜</a></li>
+            <li><a href="${path}/UserServlet/ListServlet">家居</a></li>
+            <li><a href="${path}/UserServlet/ListServlet">女装</a></li>
+            <li><a href="${path}/UserServlet/ListServlet">美妆</a></li>
+            <li><a href="${path}/UserServlet/ListServlet">数码</a></li>
+            <li><a href="${path}/UserServlet/ListServlet">团购</a></li>
         </ul>
         <div class="m_ad">中秋送好礼！</div>
     </div>
@@ -227,7 +223,7 @@
                 <dl>
                     <dt><a href="">${item.parentName}</a></dt>
                     <c:forEach var="subitem" items="${item.categories}">
-                        <dd><a href="${path}/servlet/ListServlet?category=${subitem}">${subitem}</a></dd>
+                        <dd><a href="${path}/UserServlet/ListServlet?category=${subitem}">${subitem}</a></dd>
                     </c:forEach>
                 </dl>
             </c:forEach>
@@ -236,9 +232,9 @@
         <div class="nban">
             <div class="top_slide_wrap">
                 <ul class="slide_box bxslider">
-                    <li><img src="images/nban.jpg" width="977" height="401"/></li>
-                    <li><img src="images/nban.jpg" width="977" height="401"/></li>
-                    <li><img src="images/nban.jpg" width="977" height="401"/></li>
+                    <c:forEach var="item" items="${sliders}">
+                        <li><img src="${path}/images/${item.es_img}" width="977" height="401"/></li>
+                    </c:forEach>
                 </ul>
                 <div class="op_btns clearfix">
                     <a href="#" class="op_btn op_prev"><span></span></a>
@@ -259,10 +255,10 @@
     </div>
     <div class="content mar_15">
         <ul class="cate">
-            <li><a href="CategoryList.html"><img src="images/ca_1.jpg" width="295" height="220"/></a></li>
-            <li><a href="CategoryList.html"><img src="images/ca_2.jpg" width="295" height="220"/></a></li>
-            <li><a href="CategoryList.html"><img src="images/ca_3.jpg" width="295" height="220"/></a></li>
-            <li><a href="CategoryList.html"><img src="images/ca_4.jpg" width="295" height="220"/></a></li>
+            <li><a href="CategoryList.html"><img src="${path}/images/ca_1.jpg" width="295" height="220"/></a></li>
+            <li><a href="CategoryList.html"><img src="${path}/images/ca_2.jpg" width="295" height="220"/></a></li>
+            <li><a href="CategoryList.html"><img src="${path}/images/ca_3.jpg" width="295" height="220"/></a></li>
+            <li><a href="CategoryList.html"><img src="${path}/images/ca_4.jpg" width="295" height="220"/></a></li>
         </ul>
     </div>
     <!--Begin 热卖爆款商品 Begin-->
@@ -315,9 +311,9 @@
         <div class="milk_ban">
             <div id="imgPlaym">
                 <ul class="imgs" id="actorm">
-                    <li><a href="#"><img src="images/milk_ban.jpg" width="228" height="418"/></a></li>
-                    <li><a href="#"><img src="images/milk_ban.jpg" width="228" height="418"/></a></li>
-                    <li><a href="#"><img src="images/milk_ban.jpg" width="228" height="418"/></a></li>
+                    <li><a href="#"><img src="${path}/images/milk_ban.jpg" width="228" height="418"/></a></li>
+                    <li><a href="#"><img src="${path}/images/milk_ban.jpg" width="228" height="418"/></a></li>
+                    <li><a href="#"><img src="${path}/images/milk_ban.jpg" width="228" height="418"/></a></li>
                 </ul>
                 <div class="prevm">上一张</div>
                 <div class="nextm">下一张</div>
@@ -326,56 +322,64 @@
         <div class="milk_right">
             <ul>
                 <li>
-                    <div class="img"><a href="#"><img src="images/milk_1.jpg" width="185" height="155"/></a></div>
+                    <div class="img"><a href="#"><img src="${path}/images/milk_1.jpg" width="185" height="155"/></a>
+                    </div>
                     <div class="name"><a href="#">Topfer特福芬 德国原装进口</a></div>
                     <div class="price">
                         <font>￥<span>260.00</span></font> &nbsp; 20R
                     </div>
                 </li>
                 <li>
-                    <div class="img"><a href="#"><img src="images/milk_2.jpg" width="185" height="155"/></a></div>
+                    <div class="img"><a href="#"><img src="${path}/images/milk_2.jpg" width="185" height="155"/></a>
+                    </div>
                     <div class="name"><a href="#">Topfer特福芬 德国原装进口</a></div>
                     <div class="price">
                         <font>￥<span>260.00</span></font> &nbsp; 20R
                     </div>
                 </li>
                 <li>
-                    <div class="img"><a href="#"><img src="images/milk_3.jpg" width="185" height="155"/></a></div>
+                    <div class="img"><a href="#"><img src="${path}/images/milk_3.jpg" width="185" height="155"/></a>
+                    </div>
                     <div class="name"><a href="#">Topfer特福芬 德国原装进口</a></div>
                     <div class="price">
                         <font>￥<span>260.00</span></font> &nbsp; 20R
                     </div>
                 </li>
                 <li>
-                    <div class="img"><a href="#"><img src="images/milk_4.jpg" width="185" height="155"/></a></div>
+                    <div class="img"><a href="#"><img src="${path}/images/milk_4.jpg" width="185" height="155"/></a>
+                    </div>
                     <div class="name"><a href="#">Topfer特福芬 德国原装进口</a></div>
                     <div class="price">
                         <font>￥<span>260.00</span></font> &nbsp; 20R
                     </div>
                 </li>
                 <li>
-                    <div class="img"><a href="#"><img src="images/milk_5.jpg" width="185" height="155"/></a></div>
+                    <div class="img"><a href="#"><img src="${path}/images/milk_5.jpg" width="185" height="155"/></a>
+                    </div>
                     <div class="name"><a href="#">Topfer特福芬 德国原装进口</a></div>
                     <div class="price">
                         <font>￥<span>260.00</span></font> &nbsp; 20R
                     </div>
                 </li>
                 <li>
-                    <div class="img"><a href="#"><img src="images/milk_6.jpg" width="185" height="155"/></a></div>
+                    <div class="img"><a href="#"><img src="${path}/images/milk_6.jpg" width="185" height="155"/></a>
+                    </div>
                     <div class="name"><a href="#">Topfer特福芬 德国原装进口</a></div>
                     <div class="price">
                         <font>￥<span>260.00</span></font> &nbsp; 20R
                     </div>
                 </li>
                 <li>
-                    <div class="img"><a href="#"><img src="images/milk_7.jpg" width="185" height="155"/></a></div>
+                    <div class="img"><a href="#"><img src="${path}/images/milk_7.jpg" width="185" height="155"/></a>
+                    </div>
                     <div class="name"><a href="#">Topfer特福芬 德国原装进口</a></div>
                     <div class="price">
                         <font>￥<span>260.00</span></font> &nbsp; 20R
                     </div>
                 </li>
                 <li>
-                    <div class="img"><a href="#"><img src="images/milk_8.jpg" width="185" height="155"/></a></div>
+                    <div class="img"><a href="#"><img src="${path}/images/milk_8.jpg" width="185" height="155"/></a>
+                    </div>
                     <div class="name"><a href="#">Topfer特福芬 德国原装进口</a></div>
                     <div class="price">
                         <font>￥<span>260.00</span></font> &nbsp; 20R

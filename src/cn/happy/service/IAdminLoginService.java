@@ -5,4 +5,6 @@ package cn.happy.service;
  */
 public interface IAdminLoginService {
     boolean isAdmin(String name, String password);
+
+    boolean setNewPassword(String name, String renewpass);
 }

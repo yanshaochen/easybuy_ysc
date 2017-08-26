@@ -13,12 +13,12 @@ import java.util.regex.Pattern;
 /**
  * Created by master on 17-8-22.
  */
-@WebFilter(filterName = "AdminLoginFilter", urlPatterns = {"/background_jsp/*"}, initParams = {
-        @WebInitParam(name = "excludedURL", value = "/servlet/LoginServlet")
+@WebFilter(filterName = "AdminFilter", urlPatterns = {"/AdminServlet/*", "/background_jsp/*"}, initParams = {
+        @WebInitParam(name = "excludedURL", value = "/AdminServlet/LoginServlet")
 })
-public class AdminLoginFilter implements Filter {
+public class AdminFilter implements Filter {
 
-    private Logger logger = Logger.getLogger(AdminLoginFilter.class);
+    private Logger logger = Logger.getLogger(AdminFilter.class);
     private Pattern excludedURL;
 
     public void destroy() {
@@ -32,7 +32,7 @@ public class AdminLoginFilter implements Filter {
             chain.doFilter(req, resp);
             return;
         }
-        String login_permission = (String) request.getSession().getAttribute("login_permission");
+        String login_permission = (String) request.getSession().getAttribute("admin_login_permission");
         logger.debug("the admin permission is: " + login_permission);
         if (login_permission != null) {
             chain.doFilter(req, resp);

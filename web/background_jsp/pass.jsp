@@ -15,29 +15,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta name="renderer" content="webkit">
     <title></title>
-    <link rel="stylesheet" href="css/pintuer.css">
-    <link rel="stylesheet" href="css/admin.css">
-    <script src="js/jquery.js"></script>
-    <script src="js/pintuer.js"></script>
+    <link rel="stylesheet" href="${path}/css/pintuer.css">
+    <link rel="stylesheet" href="${path}/css/admin.css">
+    <script src="${path}/js/jquery.js"></script>
+    <script src="${path}/js/pintuer.js"></script>
 </head>
 <body>
 <div class="panel admin-panel">
     <div class="panel-head"><strong><span class="icon-key"></span> 修改会员密码</strong></div>
     <div class="body-content">
-        <form method="post" class="form-x" action="">
+        <form method="post" class="form-x" action="${path}/AdminServlet/ModifyAdminServlet">
             <div class="form-group">
                 <div class="label">
-                    <label for="sitename">管理员帐号：</label>
+                    <label>管理员帐号：</label>
                 </div>
                 <div class="field">
                     <label style="line-height:33px;">
-                        admin
+                        ${admin_login_permission}
                     </label>
                 </div>
             </div>
             <div class="form-group">
                 <div class="label">
-                    <label for="sitename">原始密码：</label>
+                    <label for="mpass">原始密码：</label>
                 </div>
                 <div class="field">
                     <input type="password" class="input w50" id="mpass" name="mpass" size="50" placeholder="请输入原始密码"
@@ -46,19 +46,20 @@
             </div>
             <div class="form-group">
                 <div class="label">
-                    <label for="sitename">新密码：</label>
+                    <label for="newpass">新密码：</label>
                 </div>
                 <div class="field">
-                    <input type="password" class="input w50" name="newpass" size="50" placeholder="请输入新密码"
+                    <input type="password" class="input w50" id="newpass" name="newpass" size="50" placeholder="请输入新密码"
                            data-validate="required:请输入新密码,length#>=5:新密码不能小于5位"/>
                 </div>
             </div>
             <div class="form-group">
                 <div class="label">
-                    <label for="sitename">确认新密码：</label>
+                    <label for="renewpass">确认新密码：</label>
                 </div>
                 <div class="field">
-                    <input type="password" class="input w50" name="renewpass" size="50" placeholder="请再次输入新密码"
+                    <input type="password" class="input w50" id="renewpass" name="renewpass" size="50"
+                           placeholder="请再次输入新密码"
                            data-validate="required:请再次输入新密码,repeat#newpass:两次输入的密码不一致"/>
                 </div>
             </div>

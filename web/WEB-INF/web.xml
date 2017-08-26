@@ -27,6 +27,6 @@
 
     <!--welcome-->
     <welcome-file-list>
-        <welcome-file>servlet/ProductServlet</welcome-file>
+        <welcome-file>easybuy.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

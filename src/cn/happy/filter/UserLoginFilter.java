@@ -13,8 +13,8 @@ import java.util.regex.Pattern;
 /**
  * Created by master on 17-8-22.
  */
-@WebFilter(filterName = "UserLoginFilter", urlPatterns = {"/servlet/*", "/jsp/*"}, initParams = {
-        @WebInitParam(name = "excludedURL", value = "/servlet/(Login|Register|Product|List)Servlet")
+@WebFilter(filterName = "UserFilter", urlPatterns = {"/UserServlet/*", "/jsp/*"}, initParams = {
+        @WebInitParam(name = "excludedURL", value = "/UserServlet/(Login|Register|Product|List)Servlet")
 })
 public class UserLoginFilter implements Filter {
 
@@ -32,7 +32,7 @@ public class UserLoginFilter implements Filter {
             chain.doFilter(req, resp);
             return;
         }
-        String login_permission = (String) request.getSession().getAttribute("login_permission");
+        String login_permission = (String) request.getSession().getAttribute("user_login_permission");
         logger.debug("the user permission is: " + login_permission);
         if (login_permission != null) {
             chain.doFilter(req, resp);

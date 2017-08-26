@@ -14,12 +14,12 @@ import java.sql.ResultSet;
  */
 public class BaseDAO {
     //three source
-    protected Connection con;
-    protected PreparedStatement ps;
-    protected ResultSet rs;
+    private Connection con;
+    private PreparedStatement ps;
+    private ResultSet rs;
 
     //get connection
-    public Connection getCon() throws Exception {
+    private Connection getCon() throws Exception {
         if (con == null || con.isClosed()) {
             Context ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/easyBuy");
@@ -29,7 +29,7 @@ public class BaseDAO {
     }
 
     //close connection
-    public void closeResources() throws Exception {
+    protected void closeResources() throws Exception {
         if (rs != null)
             rs.close();
         if (ps != null)
@@ -39,7 +39,7 @@ public class BaseDAO {
     }
 
     //DML
-    public int executeUpdate(String sql, Object... objects) throws Exception {
+    protected int executeUpdate(String sql, Object... objects) throws Exception {
         int count;
         getCon();
         ps = con.prepareStatement(sql);
@@ -53,7 +53,7 @@ public class BaseDAO {
     }
 
     //DQL
-    public ResultSet executeQuery(String sql, Object... objs) throws Exception {
+    protected ResultSet executeQuery(String sql, Object... objs) throws Exception {
         getCon();
         ps = con.prepareStatement(sql);
         if (objs != null) {

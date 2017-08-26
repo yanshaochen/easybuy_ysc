@@ -51,8 +51,7 @@ public class ProductDAOImpl extends BaseDAO implements IProductDAO {
     public List<Easybuy_product> getTop10() throws Exception {
         String sql = "select * from easybuy_product where ep_istop10!=0 order by ep_istop10 asc limit 10;";
         ResultSet resultSet = executeQuery(sql);
-        SomeConverts rsToGeneric = new SomeConverts();
-        List<Easybuy_product> top10 = rsToGeneric.ResultSetToGenerics(resultSet, Easybuy_product.class);
+        List<Easybuy_product> top10 = new SomeConverts().ResultSetToGenerics(resultSet, Easybuy_product.class);
         resultSet.close();
         closeResources();
         return top10;
