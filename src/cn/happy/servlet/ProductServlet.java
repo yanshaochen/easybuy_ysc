@@ -1,9 +1,12 @@
 package cn.happy.servlet;
 
 import cn.happy.bean.Easybuy_product;
+import cn.happy.bean.Easybuy_slider;
 import cn.happy.service.ICategoryService;
+import cn.happy.service.ISliderService;
 import cn.happy.service.ITop10Service;
 import cn.happy.service.impl.CategoryServiceImpl;
+import cn.happy.service.impl.SliderServiceImpl;
 import cn.happy.service.impl.Top10ServiceImpl;
 import cn.happy.util.CategoryUtil;
 
@@ -19,7 +22,7 @@ import java.util.Map;
 /**
  * Created by master on 17-8-23.
  */
-@WebServlet(name = "ProductServlet", urlPatterns = {"/servlet/ProductServlet"})
+@WebServlet(name = "ProductServlet", urlPatterns = {"/UserServlet/ProductServlet"})
 public class ProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //show category
@@ -30,6 +33,10 @@ public class ProductServlet extends HttpServlet {
         ITop10Service tops = new Top10ServiceImpl();
         List<Easybuy_product> top10 = tops.getTop10();
         request.setAttribute("top10", top10);
+        //sliders
+        ISliderService sliderService = new SliderServiceImpl();
+        List<Easybuy_slider> sliders = sliderService.getSliders();
+        request.setAttribute("sliders", sliders);
         //dispatch
         request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
