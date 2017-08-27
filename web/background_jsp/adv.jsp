@@ -17,7 +17,7 @@
     <title></title>
     <link rel="stylesheet" href="${path}/css/pintuer.css">
     <link rel="stylesheet" href="${path}/css/admin.css">
-    <script src="${path}/js/jquery.js"></script>
+    <script src="${path}/js/jquery-2.1.1.min.js"></script>
     <script src="${path}/js/pintuer.js"></script>
     <script>
         $(document).ready(function () {

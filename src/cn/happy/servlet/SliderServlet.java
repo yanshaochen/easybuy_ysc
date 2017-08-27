@@ -61,7 +61,7 @@ public class SliderServlet extends HttpServlet {
             items = upload.parseRequest(request);
             Map<String, String> param = new SomeConverts().FileItemToGenerics(items, getServletContext());
             //delete expired file
-            deleteExpiredfile(service, param.get("es_id"));
+            deleteExpiredFile(service, param.get("es_id"));
             //flush
             boolean flag = service.updateSlider(param);
             if (flag)
@@ -75,7 +75,7 @@ public class SliderServlet extends HttpServlet {
         ISliderService service = new SliderServiceImpl();
         String id = request.getParameter("id");
         //delete expired file
-        deleteExpiredfile(service, id);
+        deleteExpiredFile(service, id);
         //flush
         if (service.delSlider(id)) {
             response.sendRedirect("/easybuy/AdminServlet/SliderServlet?action=show");
@@ -105,7 +105,7 @@ public class SliderServlet extends HttpServlet {
         request.getRequestDispatcher("/background_jsp/adv.jsp").forward(request, response);
     }
 
-    private void deleteExpiredfile(ISliderService service, String id) {
+    private void deleteExpiredFile(ISliderService service, String id) {
         String fileName = service.getImageBySliderId(id);
         String leftPath = getServletContext().getRealPath("/images/");
         File file = new File(leftPath, fileName);

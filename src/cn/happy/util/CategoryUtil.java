@@ -1,54 +1,30 @@
 package cn.happy.util;
 
+import cn.happy.bean.Easybuy_product_category;
+import cn.happy.bean.Easybuy_product_parent;
+
 import java.util.List;
 
 /**
  * Created by master on 17-8-24.
  */
 public class CategoryUtil {
-    Integer parentId;
-    String parentName;
-    List<String> categories;
-    String parentImage;
-    List<String> productImages;
+    private Easybuy_product_parent product_parent;
+    private List<Easybuy_product_category> product_categories;
 
-    public Integer getParentId() {
-        return parentId;
+    public Easybuy_product_parent getProduct_parent() {
+        return product_parent;
     }
 
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
+    public void setProduct_parent(Easybuy_product_parent product_parent) {
+        this.product_parent = product_parent;
     }
 
-    public String getParentName() {
-        return parentName;
+    public List<Easybuy_product_category> getProduct_categories() {
+        return product_categories;
     }
 
-    public void setParentName(String parentName) {
-        this.parentName = parentName;
-    }
-
-    public List<String> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
-    }
-
-    public String getParentImage() {
-        return parentImage;
-    }
-
-    public void setParentImage(String parentImage) {
-        this.parentImage = parentImage;
-    }
-
-    public List<String> getProductImages() {
-        return productImages;
-    }
-
-    public void setProductImages(List<String> productImages) {
-        this.productImages = productImages;
+    public void setProduct_categories(List<Easybuy_product_category> product_categories) {
+        this.product_categories = product_categories;
     }
 }

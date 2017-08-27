@@ -17,7 +17,7 @@
     <title>后台管理中心</title>
     <link rel="stylesheet" href="../css/pintuer.css">
     <link rel="stylesheet" href="../css/admin.css">
-    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery-2.1.1.min.js"></script>
 </head>
 <body style="background-color:#f2f9fd;">
 <div class="header bg-main">
@@ -35,6 +35,8 @@
         <li><a href="${path}/background_jsp/pass.jsp" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
         <li><a href="${path}/AdminServlet/SliderServlet?action=show" target="right"><span
                 class="icon-caret-right"></span>首页轮播</a></li>
+        <li><a href="${path}/AdminServlet/SetCategoriesServlet?action=show" target="right"><span
+                class="icon-caret-right"></span>分类管理</a></li>
     </ul>
     <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
     <ul>

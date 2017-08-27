@@ -3,6 +3,15 @@ package cn.happy.bean;
 public class Easybuy_product_parent {
     private Long epp_id;
     private String epp_name;
+    private String epp_img;
+
+    public String getEpp_img() {
+        return epp_img;
+    }
+
+    public void setEpp_img(String epp_img) {
+        this.epp_img = epp_img;
+    }
 
     public Long getEpp_id() {
         return epp_id;

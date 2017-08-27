@@ -221,9 +221,9 @@
         <div class="cate_nav">
             <c:forEach var="item" items="${categories}">
                 <dl>
-                    <dt><a href="">${item.parentName}</a></dt>
-                    <c:forEach var="subitem" items="${item.categories}">
-                        <dd><a href="${path}/UserServlet/ListServlet?category=${subitem}">${subitem}</a></dd>
+                    <dt><a href="">${item.product_parent.epp_name}</a></dt>
+                    <c:forEach var="subitem" items="${item.product_categories}">
+                        <dd><a href="${path}/UserServlet/ListServlet?category=${subitem}">${subitem.epc_name}</a></dd>
                     </c:forEach>
                 </dl>
             </c:forEach>
