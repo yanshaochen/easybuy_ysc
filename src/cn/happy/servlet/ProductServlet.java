@@ -1,6 +1,7 @@
 package cn.happy.servlet;
 
 import cn.happy.bean.Easybuy_product;
+import cn.happy.bean.Easybuy_product_parent;
 import cn.happy.bean.Easybuy_slider;
 import cn.happy.service.ICategoryService;
 import cn.happy.service.ISliderService;
@@ -8,7 +9,6 @@ import cn.happy.service.ITop10Service;
 import cn.happy.service.impl.CategoryServiceImpl;
 import cn.happy.service.impl.SliderServiceImpl;
 import cn.happy.service.impl.Top10ServiceImpl;
-import cn.happy.util.CategoryUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by master on 17-8-23.
@@ -27,8 +26,8 @@ public class ProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //show category
         ICategoryService categoryService = new CategoryServiceImpl();
-        List<CategoryUtil> categories = categoryService.getCategories();
-        request.setAttribute("categories", categories);
+        List<Easybuy_product_parent> parents = categoryService.getParents();
+        request.setAttribute("parents", parents);
         //show top10
         ITop10Service tops = new Top10ServiceImpl();
         List<Easybuy_product> top10 = tops.getTop10();

@@ -19,27 +19,39 @@
 </head>
 <body>
 <div class="panel-group" id="accordion">
+    <c:forEach var="item" items="${categories}" varStatus="status">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion"
-                   href="#collapseOne">
-                    一级分类:
+                   href="#${item.product_parent.epp_id}">
+                        ${item.product_parent.epp_name}&nbsp;
+                    <a href="javascript:void(0)"
+                       onclick="return del(${item.product_parent.epp_id})"><span>- 删除</span></a>
                 </a>
             </h4>
         </div>
-        <div id="collapseOne" class="panel-collapse collapse in">
-            <div class="panel-body">
-                <ul>
-                    <li>二级分类1 <a href="#">修改</a><a href="#">删除</a></li>
-                    <li>二级分类2</li>
-                    <li>二级分类3</li>
-                    <li><a href="#">添加</a></li>
-                </ul>
+        <c:choose>
+        <c:when test="${status.first}">
+        <div id="${item.product_parent.epp_id}" class="panel-collapse collapse in">
+            </c:when>
+            <c:otherwise>
+            <div id="${item.product_parent.epp_id}" class="panel-collapse collapse">
+                </c:otherwise>
+                </c:choose>
+                <div class="panel-body">
+                    <ul style="list-style: none">
+                        <c:forEach var="categoryItem" items="${item.product_categories}">
+                            <li>${categoryItem.epc_name}&nbsp;
+                                <a href="#">修改</a>&nbsp;
+                                <a href="#">删除</a></li>
+                        </c:forEach>
+                        <li><a href="#">+添加</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-
+        </c:forEach>
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -61,4 +73,11 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+    function del(id) {
+        if (confirm("删除分类将删除分类下所有商品,您确定要删除吗?")) {
+            location.href = '${path}/AdminServlet/SetCategoriesServlet?action=delete&epp_id=' + id;
+        }
+    }
+</script>
 </html>

@@ -108,10 +108,12 @@ public class SliderServlet extends HttpServlet {
     private void deleteExpiredFile(ISliderService service, String id) {
         String fileName = service.getImageBySliderId(id);
         String leftPath = getServletContext().getRealPath("/images/");
-        File file = new File(leftPath, fileName);
-        if (file.exists() && file.isFile()) {
-            if (!file.delete()) {
-                logger.error("file delete failed-->" + leftPath + "/" + fileName);
+        if (fileName != null && !fileName.equals("")) {
+            File file = new File(leftPath, fileName);
+            if (file.exists() && file.isFile()) {
+                if (!file.delete()) {
+                    logger.error("Slider img delete failed-->" + leftPath + "/" + fileName);
+                }
             }
         }
     }

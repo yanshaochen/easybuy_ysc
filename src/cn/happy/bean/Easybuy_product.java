@@ -6,20 +6,13 @@ public class Easybuy_product {
     private String ep_description;
     private Double ep_price;
     private Long ep_stock;
-    private Long ep_category_id;
+    private Long ep_child_id;
     private String ep_img;
     private String ep_brand;
     private Long ep_isgroup;
-    private Long ep_istop10;
+    private Long ep_intopbar;
     private String ep_title;
-
-    public String getEp_title() {
-        return ep_title;
-    }
-
-    public void setEp_title(String ep_title) {
-        this.ep_title = ep_title;
-    }
+    private Long ep_delflag;
 
     public Long getEp_id() {
         return ep_id;
@@ -61,12 +54,12 @@ public class Easybuy_product {
         this.ep_stock = ep_stock;
     }
 
-    public Long getEp_category_id() {
-        return ep_category_id;
+    public Long getEp_child_id() {
+        return ep_child_id;
     }
 
-    public void setEp_category_id(Long ep_category_id) {
-        this.ep_category_id = ep_category_id;
+    public void setEp_child_id(Long ep_child_id) {
+        this.ep_child_id = ep_child_id;
     }
 
     public String getEp_img() {
@@ -93,11 +86,27 @@ public class Easybuy_product {
         this.ep_isgroup = ep_isgroup;
     }
 
-    public Long getEp_istop10() {
-        return ep_istop10;
+    public Long getEp_intopbar() {
+        return ep_intopbar;
     }
 
-    public void setEp_istop10(Long ep_istop10) {
-        this.ep_istop10 = ep_istop10;
+    public void setEp_intopbar(Long ep_intopbar) {
+        this.ep_intopbar = ep_intopbar;
+    }
+
+    public String getEp_title() {
+        return ep_title;
+    }
+
+    public void setEp_title(String ep_title) {
+        this.ep_title = ep_title;
+    }
+
+    public Long getEp_delflag() {
+        return ep_delflag;
+    }
+
+    public void setEp_delflag(Long ep_delflag) {
+        this.ep_delflag = ep_delflag;
     }
 }

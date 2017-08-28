@@ -3,5 +3,9 @@
               maxActive="100" maxIdle="30" maxWait="10000"
               username="foreigner" password="foreigner"
               driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://127.0.0.1:3306/easybuy_ysc?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true"/>
+              url="jdbc:mysql://127.0.0.1:3306/easybuy_ysc?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true"
+              removeAbandoned="true"
+              removeAbandonedTimeout="10"
+              logAbandoned="true"
+    />
 </Context>
