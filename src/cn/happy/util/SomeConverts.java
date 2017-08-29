@@ -27,9 +27,7 @@ public class SomeConverts {
             resultColumns.add(rsmd.getColumnName(i + 1));
         }
         //get allMethods then add them to methodsList
-        Method[] allMethods = clazz.getDeclaredMethods();
-        List<Method> methodsList = new ArrayList<>();
-        methodsList.addAll(Arrays.asList(allMethods));
+        List<Method> methodsList = Arrays.asList(clazz.getDeclaredMethods());
         //get setMethodList from methodsList
         List<Method> setMethodList = methodsList
                 .stream()

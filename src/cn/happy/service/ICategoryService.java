@@ -2,6 +2,7 @@ package cn.happy.service;
 
 import cn.happy.bean.Easybuy_product_parent;
 import cn.happy.util.CategoryUtil;
+import cn.happy.util.ParentUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -28,4 +29,6 @@ public interface ICategoryService {
     boolean addCategory(String epp_id, String epc_name);
 
     boolean addParent(Map<String, String> param);
+
+    List<ParentUtil> getParentUtils();
 }

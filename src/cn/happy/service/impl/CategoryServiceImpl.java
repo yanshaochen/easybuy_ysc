@@ -5,6 +5,7 @@ import cn.happy.dao.ICategoryDAO;
 import cn.happy.dao.impl.CategoryDAOImpl;
 import cn.happy.service.ICategoryService;
 import cn.happy.util.CategoryUtil;
+import cn.happy.util.ParentUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -111,6 +112,17 @@ public class CategoryServiceImpl implements ICategoryService {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public List<ParentUtil> getParentUtils() {
+        ICategoryDAO dao = new CategoryDAOImpl();
+        try {
+            return dao.getParentUtils();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

@@ -7,7 +7,9 @@ import cn.happy.bean.Easybuy_product_parent;
 import cn.happy.dao.BaseDAO;
 import cn.happy.dao.ICategoryDAO;
 import cn.happy.util.CategoryUtil;
+import cn.happy.util.ParentUtil;
 import cn.happy.util.SomeConverts;
+import javafx.scene.Parent;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -65,7 +67,7 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
     }
 
     /*
-    get categories by categoryId
+    get categories by categoryId,private method for getCategoriesByParentId()
      */
     private Easybuy_product_category getCategoryById(Long key) throws Exception {
         Easybuy_product_category category = new Easybuy_product_category();
@@ -206,6 +208,48 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
         String sql = "insert into easybuy_product_parent values(default,?,?);";
         int count = executeUpdate(sql, param.get("epp_name"), param.get("epp_img"));
         return count > 0;
+    }
+
+    /*
+    get all parents and the corresponding categories,children
+     */
+    @Override
+    public List<ParentUtil> getParentUtils() throws Exception {
+        List<ParentUtil> parentUtils = new ArrayList<>();
+        Map<Long, List<CategoryUtil>> parents = new HashMap<>();
+        String sql = "select epp_id from easybuy_product_parent;";
+        ResultSet resultSet = executeQuery(sql);
+        while (resultSet.next()) {
+            long epp_id = resultSet.getLong("epp_id");
+            parents.put(epp_id, getCategoriesByParentId(String.valueOf(epp_id)));
+        }
+        resultSet.close();
+        closeResources();
+        for (Map.Entry<Long, List<CategoryUtil>> item : parents.entrySet()
+                ) {
+            ParentUtil parentUtil = new ParentUtil();
+            parentUtil.setProduct_parent(getParentById(item.getKey()));
+            parentUtil.setCategoryUtils(item.getValue());
+            parentUtils.add(parentUtil);
+        }
+        return parentUtils;
+    }
+
+    /*
+    private method for getParentUtils()
+     */
+    private Easybuy_product_parent getParentById(Long key) throws Exception {
+        Easybuy_product_parent parent = new Easybuy_product_parent();
+        String sql = "select epp_id,epp_name,epp_img from easybuy_product_parent where epp_id=?;";
+        ResultSet resultSet = executeQuery(sql, key);
+        if (resultSet.next()) {
+            parent.setEpp_id(resultSet.getLong("epp_id"));
+            parent.setEpp_name(resultSet.getString("epp_name"));
+            parent.setEpp_img(resultSet.getString("epp_img"));
+        }
+        resultSet.close();
+        closeResources();
+        return parent;
     }
 
 }

@@ -4,6 +4,7 @@ package cn.happy.dao;
 import cn.happy.bean.Easybuy_product;
 import cn.happy.bean.Easybuy_product_parent;
 import cn.happy.util.CategoryUtil;
+import cn.happy.util.ParentUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -34,4 +35,6 @@ public interface ICategoryDAO {
     boolean addCategory(String epp_id, String epc_name) throws Exception;
 
     boolean addParent(Map<String, String> param) throws Exception;
+
+    List<ParentUtil> getParentUtils() throws Exception;
 }

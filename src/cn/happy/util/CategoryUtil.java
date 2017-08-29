@@ -6,6 +6,7 @@ import cn.happy.bean.Easybuy_product_child;
 import java.util.List;
 
 /**
+ * Category and Children
  * Created by master on 17-8-24.
  */
 public class CategoryUtil {

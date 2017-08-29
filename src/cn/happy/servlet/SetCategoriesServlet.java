@@ -3,6 +3,7 @@ package cn.happy.servlet;
 import cn.happy.bean.Easybuy_product_parent;
 import cn.happy.service.ICategoryService;
 import cn.happy.service.impl.CategoryServiceImpl;
+import cn.happy.util.ParentUtil;
 import cn.happy.util.SomeConverts;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
@@ -122,8 +123,8 @@ public class SetCategoriesServlet extends HttpServlet {
 
     private void doShow(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ICategoryService service = new CategoryServiceImpl();
-        List<Easybuy_product_parent> parents = service.getParents();
-        request.setAttribute("parents", parents);
+        List<ParentUtil> parentUtils = service.getParentUtils();
+        request.setAttribute("parentUtils", parentUtils);
         request.getRequestDispatcher("/background_jsp/category.jsp").forward(request, response);
     }
 
