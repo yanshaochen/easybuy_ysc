@@ -13,6 +13,8 @@ public class Easybuy_product {
     private Long ep_intopbar;
     private String ep_title;
     private Long ep_delflag;
+    private Long ep_category_id;
+    private Long ep_parent_id;
 
     public Long getEp_id() {
         return ep_id;
@@ -108,5 +110,21 @@ public class Easybuy_product {
 
     public void setEp_delflag(Long ep_delflag) {
         this.ep_delflag = ep_delflag;
+    }
+
+    public Long getEp_category_id() {
+        return ep_category_id;
+    }
+
+    public void setEp_category_id(Long ep_category_id) {
+        this.ep_category_id = ep_category_id;
+    }
+
+    public Long getEp_parent_id() {
+        return ep_parent_id;
+    }
+
+    public void setEp_parent_id(Long ep_parent_id) {
+        this.ep_parent_id = ep_parent_id;
     }
 }

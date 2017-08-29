@@ -8,10 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -20,7 +17,7 @@ import java.util.stream.Collectors;
  */
 public class SomeConverts {
 
-    public <T> List<T> ResultSetToGenerics(ResultSet rs, Class<?> clazz) throws Exception {
+    public <T> List<T> ResultSetToGenerics(ResultSet rs, Class<T> clazz) throws Exception {
         //create list to return
         List<T> list = new ArrayList<>();
         //add RS column to resultColumns
@@ -31,11 +28,8 @@ public class SomeConverts {
         }
         //get allMethods then add them to methodsList
         Method[] allMethods = clazz.getDeclaredMethods();
-        List<Method> methodsList = new ArrayList();
-        for (Method item : allMethods
-                ) {
-            methodsList.add(item);
-        }
+        List<Method> methodsList = new ArrayList<>();
+        methodsList.addAll(Arrays.asList(allMethods));
         //get setMethodList from methodsList
         List<Method> setMethodList = methodsList
                 .stream()
@@ -43,24 +37,23 @@ public class SomeConverts {
                 .collect(Collectors.toList());
         //generate list
         while (rs.next()) {
-            T o = (T) clazz.newInstance();
-            for (int i = 0; i < setMethodList.size(); i++) {
-                Method method = setMethodList.get(i);
-                for (int j = 0; j < resultColumns.size(); j++) {
+            T o = clazz.newInstance();
+            for (Method method : setMethodList) {
+                for (String resultColumn : resultColumns) {
                     //the column has result,execute method
-                    if (method.getName().toLowerCase().substring(3).equals(resultColumns.get(j))) {
+                    if (method.getName().toLowerCase().substring(3).equals(resultColumn)) {
                         switch (method.getParameterTypes()[0].getName()) {
                             case "java.lang.Long":
-                                method.invoke(o, rs.getLong(resultColumns.get(j)));
+                                method.invoke(o, rs.getLong(resultColumn));
                                 break;
                             case "java.lang.String":
-                                method.invoke(o, rs.getString(resultColumns.get(j)));
+                                method.invoke(o, rs.getString(resultColumn));
                                 break;
                             case "java.lang.Double":
-                                method.invoke(o, rs.getDouble(resultColumns.get(j)));
+                                method.invoke(o, rs.getDouble(resultColumn));
                                 break;
                             case "java.sql.Timestamp":
-                                method.invoke(o, rs.getTimestamp(resultColumns.get(j)));
+                                method.invoke(o, rs.getTimestamp(resultColumn));
                                 break;
                         }
                         break;
@@ -73,7 +66,7 @@ public class SomeConverts {
     }
 
     public Map<String, String> FileItemToGenerics(List<FileItem> items, ServletContext servletContext) {
-        Map<String, String> param = new HashMap();
+        Map<String, String> param = new HashMap<>();
         String fileName;
         String leftPath;
         for (FileItem item : items

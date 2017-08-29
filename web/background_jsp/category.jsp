@@ -19,39 +19,31 @@
 </head>
 <body>
 <div class="panel-group" id="accordion">
-    <c:forEach var="item" items="${categories}" varStatus="status">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion"
-                   href="#${item.product_parent.epp_id}">
-                        ${item.product_parent.epp_name}&nbsp;
-                    <a href="javascript:void(0)"
-                       onclick="return del(${item.product_parent.epp_id})"><span>- 删除</span></a>
-                </a>
-            </h4>
-        </div>
-        <c:choose>
-        <c:when test="${status.first}">
-        <div id="${item.product_parent.epp_id}" class="panel-collapse collapse in">
-            </c:when>
-            <c:otherwise>
-            <div id="${item.product_parent.epp_id}" class="panel-collapse collapse">
-                </c:otherwise>
-                </c:choose>
+    <c:forEach var="item" items="${parents}">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                       href="#${item.epp_id}">
+                            ${item.epp_name}&nbsp;
+                        <a href="javascript:void(0)"
+                           onclick="return del(${item.epp_id})"><span>- 删除</span></a>
+                    </a>
+                </h4>
+            </div>
+            <div id="${item.epp_id}" class="panel-collapse collapse" onclick="function getCategories() {
+                    var epp_id = $(this).attr('id');
+                    alert(epp_id);
+                    }
+                    getCategories(${item.epp_id})">
                 <div class="panel-body">
                     <ul style="list-style: none">
-                        <c:forEach var="categoryItem" items="${item.product_categories}">
-                            <li>${categoryItem.epc_name}&nbsp;
-                                <a href="#">修改</a>&nbsp;
-                                <a href="#">删除</a></li>
-                        </c:forEach>
                         <li><a href="#">+添加</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        </c:forEach>
+    </c:forEach>
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -73,11 +65,31 @@
     </div>
 </div>
 </body>
+<%--delete--%>
 <script type="text/javascript">
     function del(id) {
         if (confirm("删除分类将删除分类下所有商品,您确定要删除吗?")) {
-            location.href = '${path}/AdminServlet/SetCategoriesServlet?action=delete&epp_id=' + id;
+            location.href = '${path}/AdminServlet/SetCategoriesServlet?action=delete=' + id;
         }
     }
+</script>
+<%--show--%>
+<script>
+    $(".panel-collapse").mouseover(function () {
+        var epp_id = $(this).attr('class');
+        $.getJSON("${path}/UserServlet/AjaxCategoryServlet", {"epp_id": epp_id}, function (result) {
+            $('.zj_l_c').html("");
+            $.each(result, function (i, dom) {
+                $('.zj_l_c').append(
+                    "<h2>" + dom.product_category.epc_name + "</h2>"
+                );
+                $.each(dom.product_children, function (i, child) {
+                    $('.zj_l_c').append(
+                        "<a href='#'>" + child.epch_name + "</a>|"
+                    );
+                });
+            });
+        });
+    })
 </script>
 </html>

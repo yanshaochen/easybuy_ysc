@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Background function - Sliders
  * Created by master on 17-8-26.
  */
 @WebServlet(name = "SliderServlet", urlPatterns = {"/AdminServlet/SliderServlet"})
@@ -44,7 +45,6 @@ public class SliderServlet extends HttpServlet {
         }
         if (action != null && action.equals("update")) {
             doUpdate(request, response);
-            return;
         }
     }
 

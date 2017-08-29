@@ -6,6 +6,7 @@ import cn.happy.dao.IAdminDAO;
 import java.sql.ResultSet;
 
 /**
+ * Admin Manager
  * Created by master on 17-8-26.
  */
 public class AdminDAOImpl extends BaseDAO implements IAdminDAO {

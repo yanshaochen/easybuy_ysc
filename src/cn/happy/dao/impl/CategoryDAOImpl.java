@@ -16,12 +16,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Manage easybuy_product_parent,easybuy_product_category,easybuy_product_child
  * Created by master on 17-8-23.
  */
 public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
 
     /*
-    依据父级ID获取二三级分类
+    get the categories and children by parentId
      */
     @Override
     public List<CategoryUtil> getCategoriesByParentId(String epp_id) throws Exception {
@@ -63,6 +64,9 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
         return categoryUtils;
     }
 
+    /*
+    get categories by categoryId
+     */
     private Easybuy_product_category getCategoryById(Long key) throws Exception {
         Easybuy_product_category category = new Easybuy_product_category();
         String sql = "select * from easybuy_product_category where epc_id=?;";
@@ -78,7 +82,7 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
     }
 
     /*
-    获取限时抢购或者Top10等内容
+    get the top10 or others in hot bar
      */
     @Override
     public List<Easybuy_product> getTop10() throws Exception {
@@ -91,7 +95,7 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
     }
 
     /*
-    依据获取父级分类图片
+    get the parents img
      */
     @Override
     public String getImageByParentId(String id) throws Exception {
@@ -107,22 +111,7 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
     }
 
     /*
-    删除分类的同时逻辑删除商品
-     */
-    @Override
-    public boolean deleteCategoriesByid(String epp_id) throws Exception {
-        int count = 0;
-        String sql = "update easybuy_product,easybuy_product_category set ep_delflag=1 where ep_category_id=epc_id and epc_parent_id=?;";
-        count += executeUpdate(sql, epp_id);
-        String sql2 = "delete from easybuy_product_category where epc_parent_id=?";
-        count += executeUpdate(sql2, epp_id);
-        String sql3 = "delete from easybuy_product_parent where epp_id=?";
-        count += executeUpdate(sql3, epp_id);
-        return count > 0;
-    }
-
-    /*
-    获取一级分类
+    get the parents
      */
     @Override
     public List<Easybuy_product_parent> getParents() throws Exception {
@@ -133,4 +122,90 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
         closeResources();
         return parents;
     }
+
+    /*
+    delete parent
+     */
+    @Override
+    public boolean deleteCategoriesByParentId(String epp_id) throws Exception {
+        int count = 0;
+        //Logic delete the products
+        String sql = "update easybuy_product set ep_delflag=1 where ep_parent_id=?;";
+        count += executeUpdate(sql, epp_id);
+        //delete the child
+        String sql4 = "delete from easybuy_product_child where epch_category_id in " +
+                "(select epc_id from easybuy_product_category where epc_parent_id=?);";
+        count += executeUpdate(sql4, epp_id);
+        //delete the category
+        String sql2 = "delete from easybuy_product_category where epc_parent_id=?";
+        count += executeUpdate(sql2, epp_id);
+        //delete the parent
+        String sql3 = "delete from easybuy_product_parent where epp_id=?";
+        count += executeUpdate(sql3, epp_id);
+        return count > 0;
+    }
+
+    /*
+    delete category
+     */
+    @Override
+    public boolean deleteCategoriesByCategoryId(String epc_id) throws Exception {
+        int count = 0;
+        //Logic delete the products
+        String sql = "update easybuy_product set ep_delflag=1 where ep_category_id=?;";
+        count += executeUpdate(sql, epc_id);
+        //delete the child
+        String sql4 = "delete from easybuy_product_child where epch_category_id=?";
+        count += executeUpdate(sql4, epc_id);
+        //delete the category
+        String sql2 = "delete from easybuy_product_category where epc_id=?";
+        count += executeUpdate(sql2, epc_id);
+        return count > 0;
+    }
+
+    /*
+    delete child
+     */
+    @Override
+    public boolean deleteCategoriesByChildId(String epch_id) throws Exception {
+        int count = 0;
+        //Logic delete the products
+        String sql = "update easybuy_product set ep_delflag=1 where ep_child_id=?;";
+        count += executeUpdate(sql, epch_id);
+        //delete the child
+        String sql4 = "delete from easybuy_product_child where epch_id=?";
+        count += executeUpdate(sql4, epch_id);
+        return count > 0;
+    }
+
+    /*
+    add child
+     */
+    @Override
+    public boolean addChild(String epc_id, String epch_name) throws Exception {
+        String sql = "insert into easybuy_product_child values(default,?,?);";
+        int count = executeUpdate(sql, epch_name, epc_id);
+        return count > 0;
+    }
+
+    /*
+    add category
+     */
+    @Override
+    public boolean addCategory(String epp_id, String epc_name) throws Exception {
+        String sql = "insert into easybuy_product_category values(default,?,?);";
+        int count = executeUpdate(sql, epc_name, epp_id);
+        return count > 0;
+    }
+
+    /*
+    add parent
+     */
+    @Override
+    public boolean addParent(Map<String, String> param) throws Exception {
+        String sql = "insert into easybuy_product_parent values(default,?,?);";
+        int count = executeUpdate(sql, param.get("epp_name"), param.get("epp_img"));
+        return count > 0;
+    }
+
 }

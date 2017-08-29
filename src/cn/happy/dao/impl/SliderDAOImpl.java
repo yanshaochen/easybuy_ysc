@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Slider Manager
  * Created by master on 17-8-26.
  */
 public class SliderDAOImpl extends BaseDAO implements ISliderDAO {
