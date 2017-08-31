@@ -18,8 +18,6 @@ public interface ICategoryService {
 
     boolean deleteCategoriesByParentId(String epp_id);
 
-    List<Easybuy_product_parent> getParents();
-
     boolean deleteCategoriesByCategoryId(String epc_id);
 
     boolean deleteCategoriesByChildId(String epch_id);

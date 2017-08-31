@@ -2,7 +2,7 @@ package cn.happy.util;
 
 public class PageUtil {
     private int totalCount;
-    private int pageSize = 3;
+    private int pageSize = 8;
     private int pageCount;
     private int pageIndex;
 

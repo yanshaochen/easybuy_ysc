@@ -1,5 +1,7 @@
 package cn.happy.bean;
 
+import cn.happy.util.PageUtil;
+
 public class Easybuy_product {
     private Long ep_id;
     private String ep_name;
@@ -15,6 +17,51 @@ public class Easybuy_product {
     private Long ep_delflag;
     private Long ep_category_id;
     private Long ep_parent_id;
+    private Long ep_limit;
+    private PageUtil pageUtil;
+    private String epp_name;
+    private String epc_name;
+    private String epch_name;
+
+    public String getEpp_name() {
+        return epp_name;
+    }
+
+    public void setEpp_name(String epp_name) {
+        this.epp_name = epp_name;
+    }
+
+    public String getEpc_name() {
+        return epc_name;
+    }
+
+    public void setEpc_name(String epc_name) {
+        this.epc_name = epc_name;
+    }
+
+    public String getEpch_name() {
+        return epch_name;
+    }
+
+    public void setEpch_name(String epch_name) {
+        this.epch_name = epch_name;
+    }
+
+    public PageUtil getPageUtil() {
+        return pageUtil;
+    }
+
+    public void setPageUtil(PageUtil pageUtil) {
+        this.pageUtil = pageUtil;
+    }
+
+    public Long getEp_limit() {
+        return ep_limit;
+    }
+
+    public void setEp_limit(Long ep_limit) {
+        this.ep_limit = ep_limit;
+    }
 
     public Long getEp_id() {
         return ep_id;

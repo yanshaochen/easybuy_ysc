@@ -19,25 +19,37 @@
 </head>
 <body>
 <div class="panel-group" id="accordion">
-    <c:forEach var="item" items="${parents}">
+    <c:forEach var="parentUtil" items="${parentUtils}">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion"
-                       href="#${item.epp_id}">
-                            ${item.epp_name}&nbsp;
+                       href="#${parentUtil.product_parent.epp_id}">
+                            ${parentUtil.product_parent.epp_name}&nbsp;
                         <a href="javascript:void(0)"
-                           onclick="return del(${item.epp_id})"><span>- 删除</span></a>
+                           onclick="return del(${parentUtil.product_parent.epp_id})"><span>- 删除</span></a>
                     </a>
                 </h4>
             </div>
-            <div id="${item.epp_id}" class="panel-collapse collapse" onclick="function getCategories() {
-                    var epp_id = $(this).attr('id');
-                    alert(epp_id);
-                    }
-                    getCategories(${item.epp_id})">
+            <div id="${parentUtil.product_parent.epp_id}" class="panel-collapse collapse">
                 <div class="panel-body">
                     <ul style="list-style: none">
+                        <c:forEach var="categoryUtil" items="${parentUtil.categoryUtils}">
+                            <li>${categoryUtil.product_category.epc_name}&nbsp;
+                                <a href="javascript:void(0)"
+                                   onclick="return delCategory(${categoryUtil.product_category.epc_id})"><span>- 删除</span></a>
+                            </li>
+                            <div>
+                                <ul>
+                                    <c:forEach var="child" items="${categoryUtil.product_children}">
+                                        <li>${child.epch_name}&nbsp;
+                                            <a href="javascript:void(0)"
+                                               onclick="return delChild(${child.epch_id})"><span>- 删除</span></a>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </c:forEach>
                         <li><a href="#">+添加</a></li>
                     </ul>
                 </div>
@@ -68,8 +80,18 @@
 <%--delete--%>
 <script type="text/javascript">
     function del(id) {
+        if (confirm("删除分类将删除分类下所有分类及商品,该操作将不可撤回,您确定要删除吗?")) {
+            location.href = '${path}/AdminServlet/SetCategoriesServlet?action=delete&epp_id=' + id;
+        }
+    }
+    function delCategory(id) {
+        if (confirm("删除分类将删除分类下所有分类及商品,该操作将不可撤回,您确定要删除吗?")) {
+            location.href = '${path}/AdminServlet/SetCategoriesServlet?action=delete&epc_id=' + id;
+        }
+    }
+    function delChild(id) {
         if (confirm("删除分类将删除分类下所有商品,您确定要删除吗?")) {
-            location.href = '${path}/AdminServlet/SetCategoriesServlet?action=delete=' + id;
+            location.href = '${path}/AdminServlet/SetCategoriesServlet?action=delete&epch_id=' + id;
         }
     }
 </script>

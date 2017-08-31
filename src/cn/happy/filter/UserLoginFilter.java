@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  * Created by master on 17-8-22.
  */
 @WebFilter(filterName = "UserFilter", urlPatterns = {"/UserServlet/*", "/jsp/*"}, initParams = {
-        @WebInitParam(name = "excludedURL", value = "/UserServlet/(Login|Register|Product|List|AjaxCategory)Servlet")
+        @WebInitParam(name = "excludedURL", value = "/UserServlet/(Login|Register|Product|List|AjaxProduct|AjaxCategory)Servlet")
 })
 public class UserLoginFilter implements Filter {
 

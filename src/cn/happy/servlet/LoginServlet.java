@@ -27,6 +27,10 @@ public class LoginServlet extends HttpServlet {
     }
 
     private void doAdminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession().getAttribute("admin_login_permission") != null) {
+            request.getRequestDispatcher("/background_jsp/index.jsp").forward(request, response);
+            return;
+        }
         String name = request.getParameter("name");
         String password = request.getParameter("password");
         IAdminLoginService service = new AdminLoginServiceImpl();

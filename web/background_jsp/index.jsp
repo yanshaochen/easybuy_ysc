@@ -37,6 +37,8 @@
                 class="icon-caret-right"></span>首页轮播</a></li>
         <li><a href="${path}/AdminServlet/SetCategoriesServlet?action=show" target="right"><span
                 class="icon-caret-right"></span>分类管理</a></li>
+        <li><a href="${path}/AdminServlet/SetProductsServlet?action=show" target="right"><span
+                class="icon-caret-right"></span>商品管理</a></li>
     </ul>
     <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
     <ul>

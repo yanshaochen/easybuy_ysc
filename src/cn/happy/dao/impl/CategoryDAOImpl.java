@@ -9,7 +9,6 @@ import cn.happy.dao.ICategoryDAO;
 import cn.happy.util.CategoryUtil;
 import cn.happy.util.ParentUtil;
 import cn.happy.util.SomeConverts;
-import javafx.scene.Parent;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -23,11 +22,16 @@ import java.util.Map;
  */
 public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
 
+    @Override
+    public List<CategoryUtil> getCategoriesByParentId(String epp_id) throws Exception {
+        //abandoned method
+        return null;
+    }
+
     /*
     get the categories and children by parentId
      */
-    @Override
-    public List<CategoryUtil> getCategoriesByParentId(String epp_id) throws Exception {
+    private List<CategoryUtil> getCategoriesByParentId(long epp_id) throws Exception {
         String sql = "select epc_id,epc_name,epch_id,epch_name " +
                 "from easybuy_product_child,easybuy_product_category " +
                 "where epch_category_id=epc_id and epc_parent_id=?;";
@@ -54,8 +58,6 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
                 children.get(epc_id).add(child);
             }
         }
-        resultSet.close();
-        closeResources();
         for (Map.Entry<Long, List<Easybuy_product_child>> item : children.entrySet()
                 ) {
             CategoryUtil categoryUtil = new CategoryUtil();
@@ -78,22 +80,7 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
             category.setEpc_name(resultSet.getString("epc_name"));
             category.setEpc_parent_id(resultSet.getLong("epc_parent_id"));
         }
-        resultSet.close();
-        closeResources();
         return category;
-    }
-
-    /*
-    get the top10 or others in hot bar
-     */
-    @Override
-    public List<Easybuy_product> getTop10() throws Exception {
-        String sql = "select * from easybuy_product where ep_intopbar!=0 order by ep_intopbar asc limit 10;";
-        ResultSet resultSet = executeQuery(sql);
-        List<Easybuy_product> top10 = new SomeConverts().ResultSetToGenerics(resultSet, Easybuy_product.class);
-        resultSet.close();
-        closeResources();
-        return top10;
     }
 
     /*
@@ -110,19 +97,6 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
         resultSet.close();
         closeResources();
         return epp_img;
-    }
-
-    /*
-    get the parents
-     */
-    @Override
-    public List<Easybuy_product_parent> getParents() throws Exception {
-        String sql = "select * from easybuy_product_parent;";
-        ResultSet resultSet = executeQuery(sql);
-        List<Easybuy_product_parent> parents = new SomeConverts().ResultSetToGenerics(resultSet, Easybuy_product_parent.class);
-        resultSet.close();
-        closeResources();
-        return parents;
     }
 
     /*
@@ -221,7 +195,7 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
         ResultSet resultSet = executeQuery(sql);
         while (resultSet.next()) {
             long epp_id = resultSet.getLong("epp_id");
-            parents.put(epp_id, getCategoriesByParentId(String.valueOf(epp_id)));
+            parents.put(epp_id, getCategoriesByParentId(epp_id));
         }
         resultSet.close();
         closeResources();

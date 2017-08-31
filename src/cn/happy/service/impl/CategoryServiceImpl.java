@@ -49,17 +49,6 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public List<Easybuy_product_parent> getParents() {
-        ICategoryDAO dao = new CategoryDAOImpl();
-        try {
-            return dao.getParents();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
     public boolean deleteCategoriesByCategoryId(String epc_id) {
         ICategoryDAO dao = new CategoryDAOImpl();
         try {

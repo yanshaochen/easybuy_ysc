@@ -2,7 +2,6 @@ package cn.happy.dao;
 
 
 import cn.happy.bean.Easybuy_product;
-import cn.happy.bean.Easybuy_product_parent;
 import cn.happy.util.CategoryUtil;
 import cn.happy.util.ParentUtil;
 
@@ -18,13 +17,9 @@ public interface ICategoryDAO {
 
     List<CategoryUtil> getCategoriesByParentId(String epp_id) throws Exception;
 
-    List<Easybuy_product> getTop10() throws Exception;
-
     String getImageByParentId(String id) throws Exception;
 
     boolean deleteCategoriesByParentId(String epp_id) throws Exception;
-
-    List<Easybuy_product_parent> getParents() throws Exception;
 
     boolean deleteCategoriesByCategoryId(String epc_id) throws Exception;
 

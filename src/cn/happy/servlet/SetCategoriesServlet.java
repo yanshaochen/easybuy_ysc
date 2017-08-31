@@ -1,6 +1,5 @@
 package cn.happy.servlet;
 
-import cn.happy.bean.Easybuy_product_parent;
 import cn.happy.service.ICategoryService;
 import cn.happy.service.impl.CategoryServiceImpl;
 import cn.happy.util.ParentUtil;
@@ -51,7 +50,7 @@ public class SetCategoriesServlet extends HttpServlet {
             return;
         }
         if (action != null && action.equals("failed")) {
-            request.setAttribute("operate", "classification operation is failed");
+            request.setAttribute("operate", "classification operation failed");
             request.getRequestDispatcher("/info.jsp").forward(request, response);
         }
     }
