@@ -100,23 +100,15 @@
 <div class="panel admin-panel margin-top" id="add" style="display: none">
     <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 增加内容</strong></div>
     <div class="body-content">
-        <form method="post" class="form-x" action="${path}/AdminServlet/SliderServlet?action=add"
+        <form id="add_form" method="post" class="form-x" action="${path}/AdminServlet/SliderServlet?action=add"
               enctype="multipart/form-data">
             <div class="form-group">
                 <div class="label">
-                    <label>标题：</label>
+                    <label>名称：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input w50" value="" name="es_title" data-validate="required:请输入标题"/>
-                    <div class="tips"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="label">
-                    <label>URL：</label>
-                </div>
-                <div class="field">
-                    <input type="text" class="input w50" name="es_servleturl" value=""/>
+                    <input type="text" class="input w50" value="" name="ep_name"
+                           data-validate="required:请输入名称"/>
                     <div class="tips"></div>
                 </div>
             </div>
@@ -125,17 +117,81 @@
                     <label>图片：</label>
                 </div>
                 <div class="field">
-                    <input type="file" name="es_img" value="+ 浏览上传"/>
+                    <input type="file" name="ep_img" value="+ 浏览上传"/>
                     <div class="tipss">图片尺寸：1920*500</div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="label">
-                    <label>排序：</label>
+                    <label>标题：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input w50" name="es_sort" value="100"
-                           data-validate="required:,number:排序必须为数字"/>
+                    <input type="text" class="input w50" name="ep_title" value=""
+                           data-validate="required:请输入标题"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>价格：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="ep_price" value="100"
+                           data-validate="required:,number:价格必须为数字"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>品牌：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="ep_brand" value="100"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>一级分类：</label>
+                </div>
+                <div class="field">
+                    <select id="ep_parent_set_f" name="ep_parent_id" class="input"
+                            style="width:160px; line-height:17px; display:inline-block">
+                        <c:forEach var="item" items="${parentUtils}">
+                            <option name="ep_parent_id"
+                                    value="${item.product_parent.epp_id}"
+                                    onclick="getCategories$f(${item.product_parent.epp_id})">${item.product_parent.epp_name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>二级分类：</label>
+                </div>
+                <div class="field">
+                    <select id="ep_category_set_f" name="ep_category_id" class="input"
+                            style="width:160px; line-height:17px; display:inline-block">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>三级分类：</label>
+                </div>
+                <div class="field">
+                    <select id="ep_child_set_f" name="ep_child_id" class="input"
+                            style="width:160px; line-height:17px; display:inline-block">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>库存：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="ep_stock" value="100"
+                           data-validate="required:,number:库存必须为数字"/>
                     <div class="tips"></div>
                 </div>
             </div>
@@ -308,6 +364,11 @@
             var b = Number($("#ep_category_set option:selected").val());
             return !(a == 0 || b == 0);
         })
+        $("#add_form").submit(function () {
+            var a = Number($("#ep_child_set_f option:selected").val());
+            var b = Number($("#ep_category_set_f option:selected").val());
+            return !(a == 0 || b == 0);
+        })
     });
     //pageInit method --show page content
     function pageInit(pageIndex) {
@@ -405,6 +466,7 @@
         }
     }
     function modify(ep_id) {
+        $("#update").val(ep_id);
         var ep_name;
         var ep_title;
         var ep_price;
@@ -495,6 +557,29 @@
         $.getJSON("${path}/AdminServlet/AjaxClassificationQueryServlet", {"epc_id": epc_id}, function (result) {
             $.each(result, function (i, dom) {
                 $("#ep_child_set").append(
+                    '<option name="ep_child_id" ' +
+                    'value="' + dom.epch_id + '">' + dom.epch_name + '</option>'
+                );
+            });
+        });
+    }
+    function getCategories$f(epp_id) {
+        $("#ep_child_set_f").html('<option name="ep_child_id" value="0" selected="selected">请选择</option>');
+        $("#ep_category_set_f").html('<option name="ep_category_id" value="0" selected="selected">请选择</option>');
+        $.getJSON("${path}/AdminServlet/AjaxClassificationQueryServlet", {"epp_id": epp_id}, function (result) {
+            $.each(result, function (i, dom) {
+                $("#ep_category_set_f").append(
+                    '<option name="ep_category_id" ' +
+                    'value="' + dom.epc_id + '" onclick="getChildren$f(' + dom.epc_id + ')">' + dom.epc_name + '</option>'
+                );
+            });
+        });
+    }
+    function getChildren$f(epc_id) {
+        $("#ep_child_set_f").html('<option name="ep_child_id" value="0" selected="selected">请选择</option>');
+        $.getJSON("${path}/AdminServlet/AjaxClassificationQueryServlet", {"epc_id": epc_id}, function (result) {
+            $.each(result, function (i, dom) {
+                $("#ep_child_set_f").append(
                     '<option name="ep_child_id" ' +
                     'value="' + dom.epch_id + '">' + dom.epch_name + '</option>'
                 );

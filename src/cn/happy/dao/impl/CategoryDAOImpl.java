@@ -219,16 +219,6 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
         return children;
     }
 
-    @Override
-    public List<Easybuy_product_parent> getAllParents() throws Exception {
-        String sql = "select epp_id,epp_name,epp_img from easybuy_product_parent;";
-        ResultSet resultSet = executeQuery(sql);
-        List<Easybuy_product_parent> parents = new SomeConverts().resultSetToGenerics(resultSet, Easybuy_product_parent.class);
-        resultSet.close();
-        closeResources();
-        return parents;
-    }
-
     /*
     private method for getParentUtils()
      */

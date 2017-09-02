@@ -128,15 +128,4 @@ public class CategoryServiceImpl implements ICategoryService {
         return null;
     }
 
-    @Override
-    public List<Easybuy_product_parent> getAllParents() {
-        ICategoryDAO dao = new CategoryDAOImpl();
-        try {
-            return dao.getAllParents();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 }

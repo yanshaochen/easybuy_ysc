@@ -34,6 +34,4 @@ public interface ICategoryDAO {
     List<Easybuy_product_category> getCategoriesByParentId(String epp_id) throws Exception;
 
     List<Easybuy_product_child> getChildrenByCategoryId(String epc_id) throws Exception;
-
-    List<Easybuy_product_parent> getAllParents() throws Exception;
 }

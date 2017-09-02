@@ -34,6 +34,4 @@ public interface ICategoryService {
     List<Easybuy_product_category> getCategoriesByParentId(String epp_id);
 
     List<Easybuy_product_child> getChildrenByCategoryId(String epc_id);
-
-    List<Easybuy_product_parent> getAllParents();
 }
