@@ -59,7 +59,7 @@ public class SliderServlet extends HttpServlet {
         List<FileItem> items;
         try {
             items = upload.parseRequest(request);
-            Map<String, String> param = new SomeConverts().FileItemToGenerics(items, getServletContext());
+            Map<String, String> param = new SomeConverts().fileItemToGenerics(items, getServletContext());
             //delete expired file
             deleteExpiredFile(service, param.get("es_id"));
             //flush
@@ -89,7 +89,7 @@ public class SliderServlet extends HttpServlet {
         List<FileItem> items;
         try {
             items = upload.parseRequest(request);
-            Map<String, String> param = new SomeConverts().FileItemToGenerics(items, getServletContext());
+            Map<String, String> param = new SomeConverts().fileItemToGenerics(items, getServletContext());
             boolean flag = service.addSlider(param);
             if (flag)
                 response.sendRedirect("/easybuy/AdminServlet/SliderServlet?action=show");

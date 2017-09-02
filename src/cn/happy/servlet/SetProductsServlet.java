@@ -1,13 +1,8 @@
 package cn.happy.servlet;
 
-import cn.happy.bean.Easybuy_product;
 import cn.happy.service.ICategoryService;
-import cn.happy.service.IProductService;
 import cn.happy.service.impl.CategoryServiceImpl;
-import cn.happy.service.impl.ProductServiceImpl;
-import cn.happy.util.PageUtil;
 import cn.happy.util.ParentUtil;
-import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -16,10 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 /**
+ *
  * Created by master on 17-8-31.
  */
 @WebServlet(name = "SetProductsServlet", urlPatterns = {"/AdminServlet/SetProductsServlet"})

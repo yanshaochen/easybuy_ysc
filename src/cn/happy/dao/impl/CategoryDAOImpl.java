@@ -1,6 +1,5 @@
 package cn.happy.dao.impl;
 
-import cn.happy.bean.Easybuy_product;
 import cn.happy.bean.Easybuy_product_category;
 import cn.happy.bean.Easybuy_product_child;
 import cn.happy.bean.Easybuy_product_parent;
@@ -21,12 +20,6 @@ import java.util.Map;
  * Created by master on 17-8-23.
  */
 public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
-
-    @Override
-    public List<CategoryUtil> getCategoriesByParentId(String epp_id) throws Exception {
-        //abandoned method
-        return null;
-    }
 
     /*
     get the categories and children by parentId
@@ -195,18 +188,45 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
         ResultSet resultSet = executeQuery(sql);
         while (resultSet.next()) {
             long epp_id = resultSet.getLong("epp_id");
-            parents.put(epp_id, getCategoriesByParentId(epp_id));
+            ParentUtil parentUtil = new ParentUtil();
+            parentUtil.setProduct_parent(getParentById(epp_id));
+            parentUtil.setCategoryUtils(getCategoriesByParentId(epp_id));
+            parentUtils.add(parentUtil);
         }
         resultSet.close();
         closeResources();
-        for (Map.Entry<Long, List<CategoryUtil>> item : parents.entrySet()
-                ) {
-            ParentUtil parentUtil = new ParentUtil();
-            parentUtil.setProduct_parent(getParentById(item.getKey()));
-            parentUtil.setCategoryUtils(item.getValue());
-            parentUtils.add(parentUtil);
-        }
         return parentUtils;
+    }
+
+
+    @Override
+    public List<Easybuy_product_category> getCategoriesByParentId(String epp_id) throws Exception {
+        String sql = "select epc_id,epc_name,epc_parent_id from easybuy_product_category where epc_parent_id=?;";
+        ResultSet resultSet = executeQuery(sql, epp_id);
+        List<Easybuy_product_category> categories = new SomeConverts().resultSetToGenerics(resultSet, Easybuy_product_category.class);
+        resultSet.close();
+        closeResources();
+        return categories;
+    }
+
+    @Override
+    public List<Easybuy_product_child> getChildrenByCategoryId(String epc_id) throws Exception {
+        String sql = "select epch_id,epch_name,epch_category_id from easybuy_product_child where epch_category_id=?;";
+        ResultSet resultSet = executeQuery(sql, epc_id);
+        List<Easybuy_product_child> children = new SomeConverts().resultSetToGenerics(resultSet, Easybuy_product_child.class);
+        resultSet.close();
+        closeResources();
+        return children;
+    }
+
+    @Override
+    public List<Easybuy_product_parent> getAllParents() throws Exception {
+        String sql = "select epp_id,epp_name,epp_img from easybuy_product_parent;";
+        ResultSet resultSet = executeQuery(sql);
+        List<Easybuy_product_parent> parents = new SomeConverts().resultSetToGenerics(resultSet, Easybuy_product_parent.class);
+        resultSet.close();
+        closeResources();
+        return parents;
     }
 
     /*
@@ -221,8 +241,6 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
             parent.setEpp_name(resultSet.getString("epp_name"));
             parent.setEpp_img(resultSet.getString("epp_img"));
         }
-        resultSet.close();
-        closeResources();
         return parent;
     }
 

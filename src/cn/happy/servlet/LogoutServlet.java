@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ *
  * Created by master on 17-8-26.
  */
 @WebServlet(name = "LogoutServlet", urlPatterns = {"/AdminServlet/LogoutServlet", "/UserServlet/LogoutServlet"})

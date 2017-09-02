@@ -1,9 +1,15 @@
 package cn.happy.util;
 
+import cn.happy.bean.Easybuy_product_category;
+import com.google.gson.Gson;
 import org.apache.commons.fileupload.FileItem;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.sql.ResultSet;
@@ -17,7 +23,7 @@ import java.util.stream.Collectors;
  */
 public class SomeConverts {
 
-    public <T> List<T> ResultSetToGenerics(ResultSet rs, Class<T> clazz) throws Exception {
+    public <T> List<T> resultSetToGenerics(ResultSet rs, Class<T> clazz) throws Exception {
         //create list to return
         List<T> list = new ArrayList<>();
         //add RS column to resultColumns
@@ -63,7 +69,7 @@ public class SomeConverts {
         return list;
     }
 
-    public Map<String, String> FileItemToGenerics(List<FileItem> items, ServletContext servletContext) {
+    public Map<String, String> fileItemToGenerics(List<FileItem> items, ServletContext servletContext) {
         Map<String, String> param = new HashMap<>();
         String fileName;
         String leftPath;
@@ -94,4 +100,32 @@ public class SomeConverts {
         }
         return param;
     }
+
+    @SuppressWarnings("Duplicates")
+    public <T> void ajaxWrite(List<T> items, HttpServletResponse response) throws IOException {
+        if (items != null) {
+            response.setHeader("content-type", "text/html;charset=utf-8");
+            PrintWriter writer = response.getWriter();
+            writer.print(new Gson().toJson(items));
+            writer.close();
+        }
+    }
+
+    @SuppressWarnings("Duplicates")
+    public <T> void ajaxWrite(T items, HttpServletResponse response) throws IOException {
+        if (items != null) {
+            response.setHeader("content-type", "text/html;charset=utf-8");
+            PrintWriter writer = response.getWriter();
+            writer.print(new Gson().toJson(items));
+            writer.close();
+        }
+    }
 }
+
+/*ISO-8859-1 to UTF-8
+    * if (searchKey==null){
+            searchKey="";
+        }else {
+            if (searchKey.equals(new String(searchKey.getBytes("ISO-8859-1"), "ISO-8859-1")))
+                searchKey = new String(searchKey.getBytes("ISO-8859-1"), "utf-8");
+        }*/

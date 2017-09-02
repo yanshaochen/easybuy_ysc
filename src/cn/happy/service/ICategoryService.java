@@ -1,5 +1,7 @@
 package cn.happy.service;
 
+import cn.happy.bean.Easybuy_product_category;
+import cn.happy.bean.Easybuy_product_child;
 import cn.happy.bean.Easybuy_product_parent;
 import cn.happy.util.CategoryUtil;
 import cn.happy.util.ParentUtil;
@@ -12,7 +14,6 @@ import java.util.Map;
  * Created by master on 17-8-24.
  */
 public interface ICategoryService {
-    List<CategoryUtil> getCategoriesByParentId(String epp_id);
 
     String getImageByParentId(String id);
 
@@ -29,4 +30,10 @@ public interface ICategoryService {
     boolean addParent(Map<String, String> param);
 
     List<ParentUtil> getParentUtils();
+
+    List<Easybuy_product_category> getCategoriesByParentId(String epp_id);
+
+    List<Easybuy_product_child> getChildrenByCategoryId(String epc_id);
+
+    List<Easybuy_product_parent> getAllParents();
 }

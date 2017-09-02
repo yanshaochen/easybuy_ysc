@@ -95,23 +95,4 @@
         }
     }
 </script>
-<%--show--%>
-<script>
-    $(".panel-collapse").mouseover(function () {
-        var epp_id = $(this).attr('class');
-        $.getJSON("${path}/UserServlet/AjaxCategoryServlet", {"epp_id": epp_id}, function (result) {
-            $('.zj_l_c').html("");
-            $.each(result, function (i, dom) {
-                $('.zj_l_c').append(
-                    "<h2>" + dom.product_category.epc_name + "</h2>"
-                );
-                $.each(dom.product_children, function (i, child) {
-                    $('.zj_l_c').append(
-                        "<a href='#'>" + child.epch_name + "</a>|"
-                    );
-                });
-            });
-        });
-    })
-</script>
 </html>

@@ -18,7 +18,7 @@ public class SliderDAOImpl extends BaseDAO implements ISliderDAO {
     public List<Easybuy_slider> getSliders() throws Exception {
         String sql = "select * from easybuy_slider order by es_sort asc;";
         ResultSet resultSet = executeQuery(sql);
-        List<Easybuy_slider> sliders = new SomeConverts().ResultSetToGenerics(resultSet, Easybuy_slider.class);
+        List<Easybuy_slider> sliders = new SomeConverts().resultSetToGenerics(resultSet, Easybuy_slider.class);
         resultSet.close();
         closeResources();
         return sliders;

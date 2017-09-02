@@ -81,7 +81,7 @@ public class SetCategoriesServlet extends HttpServlet {
             List<FileItem> items;
             try {
                 items = upload.parseRequest(request);
-                Map<String, String> param = new SomeConverts().FileItemToGenerics(items, getServletContext());
+                Map<String, String> param = new SomeConverts().fileItemToGenerics(items, getServletContext());
                 if (service.addParent(param)) {
                     response.sendRedirect("/easybuy/AdminServlet/SetCategoriesServlet?action=show");
                 } else {
