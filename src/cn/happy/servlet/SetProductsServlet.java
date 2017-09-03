@@ -1,8 +1,15 @@
 package cn.happy.servlet;
 
 import cn.happy.service.ICategoryService;
+import cn.happy.service.IProductService;
 import cn.happy.service.impl.CategoryServiceImpl;
+import cn.happy.service.impl.ProductServiceImpl;
 import cn.happy.util.ParentUtil;
+import cn.happy.util.SomeConverts;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -10,8 +17,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -29,9 +38,33 @@ public class SetProductsServlet extends HttpServlet {
             doShow(request, response);
             return;
         }
+        //update product
+        if (action != null && action.equals("update")) {
+            doUpdate(request, response);
+            return;
+        }
         if (action != null && action.equals("failed")) {
             request.setAttribute("operate", "set product operation failed");
             request.getRequestDispatcher("/info.jsp").forward(request, response);
+        }
+    }
+
+    private void doUpdate(HttpServletRequest request, HttpServletResponse response) {
+        IProductService service = new ProductServiceImpl();
+        FileItemFactory factory = new DiskFileItemFactory();
+        ServletFileUpload upload = new ServletFileUpload(factory);
+        List<FileItem> items;
+        try {
+            items = upload.parseRequest(request);
+            Map<String, String> param = new SomeConverts().fileItemToGenerics(items, getServletContext());
+            deleteExpiredFile(service, param.get("ep_id"));
+            boolean flag = service.updateProduct(param);
+            if (flag)
+                response.sendRedirect("/easybuy/AdminServlet/SetProductsServlet?action=show");
+            else
+                request.getRequestDispatcher("/AdminServlet/SetProductsServlet?action=failed").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -44,5 +77,18 @@ public class SetProductsServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
+    }
+
+    private void deleteExpiredFile(IProductService service, String id) {
+        String fileName = service.getImageByProductId(id);
+        String leftPath = getServletContext().getRealPath("/images/");
+        if (fileName != null && !fileName.equals("")) {
+            File file = new File(leftPath, fileName);
+            if (file.exists() && file.isFile()) {
+                if (!file.delete()) {
+                    logger.error("Product img delete failed-->" + leftPath + "/" + fileName);
+                }
+            }
+        }
     }
 }

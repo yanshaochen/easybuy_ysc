@@ -8,6 +8,7 @@ import cn.happy.util.PageUtil;
 import cn.happy.util.ProductAndCategoryListUtil;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -43,4 +44,8 @@ public interface IProductDAO {
     List<Easybuy_product_category> getCategoriesByParentId(Long ep_parent_id) throws Exception;
 
     List<Easybuy_product_child> getChildrenByCategoryId(Long ep_category_id) throws Exception;
+
+    boolean updateProduct(Map<String, String> param) throws Exception;
+
+    String getImageByProductId(String id) throws Exception;
 }

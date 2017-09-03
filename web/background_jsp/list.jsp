@@ -402,7 +402,7 @@
                     '   <td style="text-align:left; padding-left:20px;"><input type="checkbox" name="ep_id"                     ' +
                     '    value=""/>' + dom.ep_id + '</td>                                                                        ' +
                     '        <td>' + dom.ep_name + '</td>                   ' +
-                    '        <td width="10%"><img src="${path}/images/' + dom.ep_img + '+" alt="" width="70" height="50"/></td>   ' +
+                    '        <td width="10%"><img src="${path}/images/' + dom.ep_img + '" alt="" width="70" height="50"/></td>   ' +
                     '        <td>' + dom.ep_title + '</td>                                                                       ' +
                     '       <td>' + dom.ep_price + '</td>                                                                        ' +
                     '       <td>' + dom.ep_brand + '</td>                                                                        ' +

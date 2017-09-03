@@ -11,6 +11,7 @@ import cn.happy.util.PageUtil;
 import cn.happy.util.ProductAndCategoryListUtil;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -119,6 +120,28 @@ public class ProductServiceImpl implements IProductService {
         productAndList.setChildren(children);
         productAndList.setProduct(product);
         return productAndList;
+    }
+
+    @Override
+    public boolean updateProduct(Map<String, String> param) {
+        IProductDAO dao = new ProductDAOImpl();
+        try {
+            return dao.updateProduct(param);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public String getImageByProductId(String id) {
+        IProductDAO dao = new ProductDAOImpl();
+        try {
+            return dao.getImageByProductId(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

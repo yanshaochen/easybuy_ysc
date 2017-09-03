@@ -12,6 +12,7 @@ import cn.happy.util.SomeConverts;
 
 import java.sql.ResultSet;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -148,6 +149,24 @@ public class ProductDAOImpl extends BaseDAO implements IProductDAO {
         resultSet.close();
         closeResources();
         return children;
+    }
+
+    @Override
+    public boolean updateProduct(Map<String, String> param) throws Exception {
+        String sql = "update easybuy_product set ep_name=?,ep_img=?,ep_title=?,ep_price=?,ep_brand=?,ep_parent_id=?,ep_category_id=?,ep_child_id=?,ep_stock=? where ep_id=?;";
+        int count = executeUpdate(sql, param.get("ep_name"), param.get("ep_img"), param.get("ep_title"), param.get("ep_price"), param.get("ep_brand"), param.get("ep_parent_id"), param.get("ep_category_id"), param.get("ep_child_id"), param.get("ep_stock"), param.get("ep_id"));
+        return count > 0;
+    }
+
+    @Override
+    public String getImageByProductId(String id) throws Exception {
+        String ep_img = null;
+        String sql = "select ep_img from easybuy_product where ep_id=?;";
+        ResultSet resultSet = executeQuery(sql, id);
+        if (resultSet.next()) {
+            ep_img = resultSet.getString("ep_img");
+        }
+        return ep_img;
     }
 
     @Override

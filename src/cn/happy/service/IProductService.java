@@ -5,6 +5,7 @@ import cn.happy.util.PageUtil;
 import cn.happy.util.ProductAndCategoryListUtil;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -34,4 +35,8 @@ public interface IProductService {
     int getTotalRecordsByParentId(String ep_parent_id, String searchKey);
 
     ProductAndCategoryListUtil getProductAndCategoryListUtil(String ep_id);
+
+    boolean updateProduct(Map<String, String> param);
+
+    String getImageByProductId(String id);
 }
