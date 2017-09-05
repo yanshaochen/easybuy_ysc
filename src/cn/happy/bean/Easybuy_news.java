@@ -1,11 +1,22 @@
 package cn.happy.bean;
 
+import cn.happy.util.PageUtil;
+
 public class Easybuy_news {
     private Long en_id;
     private String en_title;
     private String en_content;
     private java.sql.Timestamp en_create_time;
     private java.sql.Timestamp en_modify_time;
+    private PageUtil pageUtil;
+
+    public PageUtil getPageUtil() {
+        return pageUtil;
+    }
+
+    public void setPageUtil(PageUtil pageUtil) {
+        this.pageUtil = pageUtil;
+    }
 
     public Long getEn_id() {
         return en_id;

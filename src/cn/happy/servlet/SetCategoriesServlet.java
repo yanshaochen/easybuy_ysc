@@ -6,7 +6,6 @@ import cn.happy.util.ParentUtil;
 import cn.happy.util.SomeConverts;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
@@ -41,12 +40,28 @@ public class SetCategoriesServlet extends HttpServlet {
             doDel(request, response);
             return;
         }
-        if (action != null && action.equals("add")) {
-            doAdd(request, response);
+        if (action != null && action.equals("addParent")) {
+            doAddParent(request, response);
             return;
         }
-        if (action != null && action.equals("add")) {
-            doAdd(request, response);
+        if (action != null && action.equals("addCategory")) {
+            doAddCategory(request, response);
+            return;
+        }
+        if (action != null && action.equals("addChild")) {
+            doAddChild(request, response);
+            return;
+        }
+        if (action != null && action.equals("modChild")) {
+            doModChild(request, response);
+            return;
+        }
+        if (action != null && action.equals("modCategory")) {
+            doModCategory(request, response);
+            return;
+        }
+        if (action != null && action.equals("modParent")) {
+            doModParent(request, response);
             return;
         }
         if (action != null && action.equals("failed")) {
@@ -55,41 +70,84 @@ public class SetCategoriesServlet extends HttpServlet {
         }
     }
 
-    private void doAdd(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void doModParent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ICategoryService service = new CategoryServiceImpl();
+        FileItemFactory factory = new DiskFileItemFactory();
+        ServletFileUpload upload = new ServletFileUpload(factory);
+        List<FileItem> items;
+        try {
+            items = upload.parseRequest(request);
+            Map<String, String> param = new SomeConverts().fileItemToGenerics(items, getServletContext());
+            deleteExpiredFile(service, param.get("epp_id"));
+            boolean flag = service.doModParent(param);
+            if (flag)
+                response.sendRedirect("/easybuy/AdminServlet/SetCategoriesServlet?action=show");
+            else
+                request.getRequestDispatcher("/AdminServlet/SetCategoriesServlet?action=failed").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void doModCategory(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ICategoryService service = new CategoryServiceImpl();
         String epc_id = request.getParameter("epc_id");
-        String epp_id = request.getParameter("epp_id");
-        /*add child required epc_id and epch_name
-        * add category required epp_id and epc_name
-        * add parent required file field - param
-        * */
-        if (epc_id != null && !epc_id.equals("")) {
-            if (service.addChild(epc_id, request.getParameter("epch_name"))) {
-                response.sendRedirect("/easybuy/AdminServlet/SetCategoriesServlet?action=show");
-            } else {
-                request.getRequestDispatcher("/AdminServlet/SetCategoriesServlet?action=failed");
-            }
-        } else if (epp_id != null && !epp_id.equals("")) {
-            if (service.addCategory(epp_id, request.getParameter("epc_name"))) {
-                response.sendRedirect("/easybuy/AdminServlet/SetCategoriesServlet?action=show");
-            } else {
-                request.getRequestDispatcher("/AdminServlet/SetCategoriesServlet?action=failed");
-            }
+        String epc_name = request.getParameter("epc_name");
+        if (service.doModCategory(epc_id, epc_name)) {
+            response.sendRedirect("/easybuy/AdminServlet/SetCategoriesServlet?action=show");
         } else {
-            FileItemFactory factory = new DiskFileItemFactory();
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            List<FileItem> items;
-            try {
-                items = upload.parseRequest(request);
-                Map<String, String> param = new SomeConverts().fileItemToGenerics(items, getServletContext());
-                if (service.addParent(param)) {
-                    response.sendRedirect("/easybuy/AdminServlet/SetCategoriesServlet?action=show");
-                } else {
-                    request.getRequestDispatcher("/AdminServlet/SetCategoriesServlet?action=failed");
-                }
-            } catch (FileUploadException e) {
-                e.printStackTrace();
-            }
+            request.getRequestDispatcher("/AdminServlet/SetCategoriesServlet?action=failed");
+        }
+    }
+
+    private void doModChild(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ICategoryService service = new CategoryServiceImpl();
+        String epch_id = request.getParameter("epch_id");
+        String epch_name = request.getParameter("epch_name");
+        if (service.modChild(epch_id, epch_name)) {
+            response.sendRedirect("/easybuy/AdminServlet/SetCategoriesServlet?action=show");
+        } else {
+            request.getRequestDispatcher("/AdminServlet/SetCategoriesServlet?action=failed");
+        }
+    }
+
+    private void doAddChild(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ICategoryService service = new CategoryServiceImpl();
+        String epc_id = request.getParameter("epc_id");
+        String epch_name = request.getParameter("epch_name");
+        if (service.addChild(epc_id, epch_name)) {
+            response.sendRedirect("/easybuy/AdminServlet/SetCategoriesServlet?action=show");
+        } else {
+            request.getRequestDispatcher("/AdminServlet/SetCategoriesServlet?action=failed");
+        }
+    }
+
+    private void doAddCategory(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ICategoryService service = new CategoryServiceImpl();
+        String epp_id = request.getParameter("epp_id");
+        String epc_name = request.getParameter("epc_name");
+        if (service.addCategory(epp_id, epc_name)) {
+            response.sendRedirect("/easybuy/AdminServlet/SetCategoriesServlet?action=show");
+        } else {
+            request.getRequestDispatcher("/AdminServlet/SetCategoriesServlet?action=failed");
+        }
+    }
+
+    private void doAddParent(HttpServletRequest request, HttpServletResponse response) {
+        ICategoryService service = new CategoryServiceImpl();
+        FileItemFactory factory = new DiskFileItemFactory();
+        ServletFileUpload upload = new ServletFileUpload(factory);
+        List<FileItem> items;
+        try {
+            items = upload.parseRequest(request);
+            Map<String, String> param = new SomeConverts().fileItemToGenerics(items, getServletContext());
+            boolean flag = service.addParent(param);
+            if (flag)
+                response.sendRedirect("/easybuy/AdminServlet/SetCategoriesServlet?action=show");
+            else
+                request.getRequestDispatcher("/AdminServlet/SetCategoriesServlet?action=failed").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

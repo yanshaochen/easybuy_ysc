@@ -43,9 +43,45 @@ public class SetProductsServlet extends HttpServlet {
             doUpdate(request, response);
             return;
         }
+        if (action != null && action.equals("add")) {
+            doAdd(request, response);
+            return;
+        }
+        if (action != null && action.equals("delete")) {
+            doDel(request, response);
+            return;
+        }
         if (action != null && action.equals("failed")) {
             request.setAttribute("operate", "set product operation failed");
             request.getRequestDispatcher("/info.jsp").forward(request, response);
+        }
+    }
+
+    private void doDel(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        IProductService service = new ProductServiceImpl();
+        String ep_id = request.getParameter("ep_id");
+        boolean flag = service.deleteProductById(ep_id);
+        if (flag)
+            response.sendRedirect("/easybuy/AdminServlet/SetProductsServlet?action=show");
+        else
+            request.getRequestDispatcher("/AdminServlet/SetProductsServlet?action=failed").forward(request, response);
+    }
+
+    private void doAdd(HttpServletRequest request, HttpServletResponse response) {
+        IProductService service = new ProductServiceImpl();
+        FileItemFactory factory = new DiskFileItemFactory();
+        ServletFileUpload upload = new ServletFileUpload(factory);
+        List<FileItem> items;
+        try {
+            items = upload.parseRequest(request);
+            Map<String, String> param = new SomeConverts().fileItemToGenerics(items, getServletContext());
+            boolean flag = service.addProduct(param);
+            if (flag)
+                response.sendRedirect("/easybuy/AdminServlet/SetProductsServlet?action=show");
+            else
+                request.getRequestDispatcher("/AdminServlet/SetProductsServlet?action=failed").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

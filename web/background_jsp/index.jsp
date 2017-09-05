@@ -42,9 +42,10 @@
     </ul>
     <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
     <ul>
-        <li><a href="#" target="right"><span class="icon-caret-right"></span>内容管理</a></li>
-        <li><a href="#" target="right"><span class="icon-caret-right"></span>添加内容</a></li>
-        <li><a href="#" target="right"><span class="icon-caret-right"></span>分类管理</a></li>
+        <li><a href="${path}/AdminServlet/NewsServlet?action=show" target="right"><span class="icon-caret-right"></span>新闻管理</a>
+        </li>
+        <li><a href="#" target="right"><span class="icon-caret-right"></span>订单管理</a></li>
+        <li><a href="#" target="right"><span class="icon-caret-right"></span>用户管理</a></li>
     </ul>
 </div>
 <script type="text/javascript">

@@ -39,4 +39,8 @@ public interface IProductService {
     boolean updateProduct(Map<String, String> param);
 
     String getImageByProductId(String id);
+
+    boolean addProduct(Map<String, String> param);
+
+    boolean deleteProductById(String ep_id);
 }

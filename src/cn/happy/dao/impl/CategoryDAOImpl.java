@@ -25,9 +25,7 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
     get the categories and children by parentId
      */
     private List<CategoryUtil> getCategoriesByParentId(long epp_id) throws Exception {
-        String sql = "select epc_id,epc_name,epch_id,epch_name " +
-                "from easybuy_product_child,easybuy_product_category " +
-                "where epch_category_id=epc_id and epc_parent_id=?;";
+        String sql = "select epc_id,epc_name,epch_id,epch_name from easybuy_product_category LEFT JOIN easybuy_product_child ON epc_id=epch_category_id where epc_parent_id=?;";
         ResultSet resultSet = executeQuery(sql, epp_id);
         List<CategoryUtil> categoryUtils = new ArrayList<>();
         /*HashMap's get(key) method would have problems if the key is <Object> such as Easybuy_product_parent
@@ -183,7 +181,6 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
     @Override
     public List<ParentUtil> getParentUtils() throws Exception {
         List<ParentUtil> parentUtils = new ArrayList<>();
-        Map<Long, List<CategoryUtil>> parents = new HashMap<>();
         String sql = "select epp_id from easybuy_product_parent;";
         ResultSet resultSet = executeQuery(sql);
         while (resultSet.next()) {
@@ -217,6 +214,27 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
         resultSet.close();
         closeResources();
         return children;
+    }
+
+    @Override
+    public boolean modChild(String epch_id, String epch_name) throws Exception {
+        String sql = "update easybuy_product_child set epch_name=? where epch_id=?;";
+        int count = executeUpdate(sql, epch_name, epch_id);
+        return count > 0;
+    }
+
+    @Override
+    public boolean doModCategory(String epc_id, String epc_name) throws Exception {
+        String sql = "update easybuy_product_category set epc_name=? where epc_id=?;";
+        int count = executeUpdate(sql, epc_name, epc_id);
+        return count > 0;
+    }
+
+    @Override
+    public boolean doModParent(Map<String, String> param) throws Exception {
+        String sql = "update easybuy_product_parent set epp_name=?,epp_img=? where epp_id=?;";
+        int count = executeUpdate(sql, param.get("epp_name"), param.get("epp_img"), param.get("epp_id"));
+        return count > 0;
     }
 
     /*

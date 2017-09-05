@@ -145,6 +145,28 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
+    public boolean addProduct(Map<String, String> param) {
+        IProductDAO dao = new ProductDAOImpl();
+        try {
+            return dao.addProduct(param);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteProductById(String ep_id) {
+        IProductDAO dao = new ProductDAOImpl();
+        try {
+            return dao.deleteProductById(ep_id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public List<Easybuy_product> getProductsInPage(PageUtil page, String searchKey) {
         IProductDAO dao = new ProductDAOImpl();
         try {

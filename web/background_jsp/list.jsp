@@ -100,7 +100,7 @@
 <div class="panel admin-panel margin-top" id="add" style="display: none">
     <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 增加内容</strong></div>
     <div class="body-content">
-        <form id="add_form" method="post" class="form-x" action="${path}/AdminServlet/SliderServlet?action=add"
+        <form id="add_form" method="post" class="form-x" action="${path}/AdminServlet/SetProductsServlet?action=add"
               enctype="multipart/form-data">
             <div class="form-group">
                 <div class="label">
@@ -157,6 +157,7 @@
                 <div class="field">
                     <select id="ep_parent_set_f" name="ep_parent_id" class="input"
                             style="width:160px; line-height:17px; display:inline-block">
+                        <option name="ep_parent_id" value="0">请选择</option>
                         <c:forEach var="item" items="${parentUtils}">
                             <option name="ep_parent_id"
                                     value="${item.product_parent.epp_id}"

@@ -2,11 +2,9 @@ package cn.happy.service.impl;
 
 import cn.happy.bean.Easybuy_product_category;
 import cn.happy.bean.Easybuy_product_child;
-import cn.happy.bean.Easybuy_product_parent;
 import cn.happy.dao.ICategoryDAO;
 import cn.happy.dao.impl.CategoryDAOImpl;
 import cn.happy.service.ICategoryService;
-import cn.happy.util.CategoryUtil;
 import cn.happy.util.ParentUtil;
 
 import java.util.List;
@@ -126,6 +124,39 @@ public class CategoryServiceImpl implements ICategoryService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean modChild(String epch_id, String epch_name) {
+        ICategoryDAO dao = new CategoryDAOImpl();
+        try {
+            return dao.modChild(epch_id, epch_name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean doModCategory(String epc_id, String epc_name) {
+        ICategoryDAO dao = new CategoryDAOImpl();
+        try {
+            return dao.doModCategory(epc_id, epc_name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean doModParent(Map<String, String> param) {
+        ICategoryDAO dao = new CategoryDAOImpl();
+        try {
+            return dao.doModParent(param);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

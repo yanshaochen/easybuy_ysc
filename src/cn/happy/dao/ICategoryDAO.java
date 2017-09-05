@@ -3,7 +3,6 @@ package cn.happy.dao;
 
 import cn.happy.bean.Easybuy_product_category;
 import cn.happy.bean.Easybuy_product_child;
-import cn.happy.bean.Easybuy_product_parent;
 import cn.happy.util.ParentUtil;
 
 import java.util.List;
@@ -34,4 +33,10 @@ public interface ICategoryDAO {
     List<Easybuy_product_category> getCategoriesByParentId(String epp_id) throws Exception;
 
     List<Easybuy_product_child> getChildrenByCategoryId(String epc_id) throws Exception;
+
+    boolean modChild(String epch_id, String epch_name) throws Exception;
+
+    boolean doModCategory(String epc_id, String epc_name) throws Exception;
+
+    boolean doModParent(Map<String, String> param) throws Exception;
 }

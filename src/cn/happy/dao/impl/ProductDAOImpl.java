@@ -7,7 +7,6 @@ import cn.happy.bean.Easybuy_product_parent;
 import cn.happy.dao.BaseDAO;
 import cn.happy.dao.IProductDAO;
 import cn.happy.util.PageUtil;
-import cn.happy.util.ProductAndCategoryListUtil;
 import cn.happy.util.SomeConverts;
 
 import java.sql.ResultSet;
@@ -170,10 +169,24 @@ public class ProductDAOImpl extends BaseDAO implements IProductDAO {
     }
 
     @Override
+    public boolean addProduct(Map<String, String> param) throws Exception {
+        String sql = "insert into easybuy_product (ep_name,ep_img,ep_title,ep_price,ep_brand,ep_parent_id,ep_category_id,ep_child_id,ep_stock) values(?,?,?,?,?,?,?,?,?);";
+        int count = executeUpdate(sql, param.get("ep_name"), param.get("ep_img"), param.get("ep_title"), param.get("ep_price"), param.get("ep_brand"), param.get("ep_parent_id"), param.get("ep_category_id"), param.get("ep_child_id"), param.get("ep_stock"));
+        return count > 0;
+    }
+
+    @Override
+    public boolean deleteProductById(String ep_id) throws Exception {
+        String sql = "update easybuy_product set ep_delflag=1 where ep_id=?;";
+        int count = executeUpdate(sql, ep_id);
+        return count > 0;
+    }
+
+    @Override
     public List<Easybuy_product> getProductsInPage(PageUtil page, String searchKey) throws Exception {
         String sql = "select ep_id,ep_name,ep_description,ep_price,ep_stock,ep_child_id,ep_img,ep_brand,ep_isgroup,ep_intopbar,ep_title,ep_category_id,ep_parent_id,ep_limit,epp_name,epc_name,epch_name " +
                 "from easybuy_product,easybuy_product_parent,easybuy_product_category,easybuy_product_child where " +
-                "ep_child_id=epch_id and epch_category_id=epc_id and epc_parent_id=epp_id and ep_delflag!=1 and ep_name like '%" + searchKey + "%' limit ?,?;";
+                "ep_child_id=epch_id and epch_category_id=epc_id and epc_parent_id=epp_id and ep_delflag!=1 and ep_name like '%" + searchKey + "%' order by ep_id desc limit ?,?;";
         ResultSet resultSet = executeQuery(sql, (page.getPageIndex() - 1) * page.getPageSize(), page.getPageSize());
         List<Easybuy_product> products = new SomeConverts().resultSetToGenerics(resultSet, Easybuy_product.class);
         resultSet.close();
@@ -185,7 +198,7 @@ public class ProductDAOImpl extends BaseDAO implements IProductDAO {
     public List<Easybuy_product> getProductsInPageByChildId(PageUtil page, String ep_child_id, String searchKey) throws Exception {
         String sql = "select ep_id,ep_name,ep_description,ep_price,ep_stock,ep_child_id,ep_img,ep_brand,ep_isgroup,ep_intopbar,ep_title,ep_category_id,ep_parent_id,ep_limit,epp_name,epc_name,epch_name " +
                 "from easybuy_product,easybuy_product_parent,easybuy_product_category,easybuy_product_child where " +
-                "ep_child_id=epch_id and epch_category_id=epc_id and epc_parent_id=epp_id and ep_child_id=? and ep_delflag!=1 and ep_name like '%" + searchKey + "%' limit ?,?;";
+                "ep_child_id=epch_id and epch_category_id=epc_id and epc_parent_id=epp_id and ep_child_id=? and ep_delflag!=1 and ep_name like '%" + searchKey + "%' order by ep_id desc limit ?,?;";
         ResultSet resultSet = executeQuery(sql, ep_child_id, (page.getPageIndex() - 1) * page.getPageSize(), page.getPageSize());
         List<Easybuy_product> products = new SomeConverts().resultSetToGenerics(resultSet, Easybuy_product.class);
         resultSet.close();
@@ -197,7 +210,7 @@ public class ProductDAOImpl extends BaseDAO implements IProductDAO {
     public List<Easybuy_product> getProductsInPageByCategoryId(PageUtil page, String ep_category_id, String searchKey) throws Exception {
         String sql = "select ep_id,ep_name,ep_description,ep_price,ep_stock,ep_child_id,ep_img,ep_brand,ep_isgroup,ep_intopbar,ep_title,ep_category_id,ep_parent_id,ep_limit,epp_name,epc_name,epch_name " +
                 "from easybuy_product,easybuy_product_parent,easybuy_product_category,easybuy_product_child where " +
-                "ep_child_id=epch_id and epch_category_id=epc_id and epc_parent_id=epp_id and ep_category_id=? and ep_delflag!=1 and ep_name like '%" + searchKey + "%' limit ?,?;";
+                "ep_child_id=epch_id and epch_category_id=epc_id and epc_parent_id=epp_id and ep_category_id=? and ep_delflag!=1 and ep_name like '%" + searchKey + "%' order by ep_id desc limit ?,?;";
         ResultSet resultSet = executeQuery(sql, ep_category_id, (page.getPageIndex() - 1) * page.getPageSize(), page.getPageSize());
         List<Easybuy_product> products = new SomeConverts().resultSetToGenerics(resultSet, Easybuy_product.class);
         resultSet.close();
@@ -209,7 +222,7 @@ public class ProductDAOImpl extends BaseDAO implements IProductDAO {
     public List<Easybuy_product> getProductsInPageByParentId(PageUtil page, String ep_parent_id, String searchKey) throws Exception {
         String sql = "select ep_id,ep_name,ep_description,ep_price,ep_stock,ep_child_id,ep_img,ep_brand,ep_isgroup,ep_intopbar,ep_title,ep_category_id,ep_parent_id,ep_limit,epp_name,epc_name,epch_name " +
                 "from easybuy_product,easybuy_product_parent,easybuy_product_category,easybuy_product_child where " +
-                "ep_child_id=epch_id and epch_category_id=epc_id and epc_parent_id=epp_id and ep_parent_id=? and ep_delflag!=1 and ep_name like '%" + searchKey + "%' limit ?,?;";
+                "ep_child_id=epch_id and epch_category_id=epc_id and epc_parent_id=epp_id and ep_parent_id=? and ep_delflag!=1 and ep_name like '%" + searchKey + "%' order by ep_id desc limit ?,?;";
         ResultSet resultSet = executeQuery(sql, ep_parent_id, (page.getPageIndex() - 1) * page.getPageSize(), page.getPageSize());
         List<Easybuy_product> products = new SomeConverts().resultSetToGenerics(resultSet, Easybuy_product.class);
         resultSet.close();

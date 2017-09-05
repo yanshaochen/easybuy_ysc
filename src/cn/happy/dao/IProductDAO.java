@@ -48,4 +48,8 @@ public interface IProductDAO {
     boolean updateProduct(Map<String, String> param) throws Exception;
 
     String getImageByProductId(String id) throws Exception;
+
+    boolean addProduct(Map<String, String> param) throws Exception;
+
+    boolean deleteProductById(String ep_id) throws Exception;
 }
