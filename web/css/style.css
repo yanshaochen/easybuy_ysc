@@ -587,7 +587,7 @@ ul.menu_r li a:hover, ul.menu_r li a.now {
     width: 220px;
     min-height: 70px;
     overflow: hidden;
-    background: url(../images/nav_bg.png) repeat center top;
+    /*background: url(../images/nav_bg.png) repeat center top;*/
     position: absolute;
     left: 196px;
     top: 0px;
@@ -838,7 +838,7 @@ ul.menu_r li a:hover, ul.menu_r li a.now {
     left: 0;
     z-index: 1;
     opacity: .8;
-    *filter: alpha(opacity=80)
+    *filter: alpha(80)
 }
 
 .banner .slide_info_card .slide_info_card_text {
@@ -1286,7 +1286,7 @@ ul.menu_r li a:hover, ul.menu_r li a.now {
     width: 243px;
     height: 228px;
     overflow: hidden;
-    background: url(../images/line.gif) no-repeat right 122px;
+    background: url(../images/s_line.gif) no-repeat right 122px;
     float: left;
     border-right: 1px solid #eaeaea;
     position: relative;
@@ -2379,7 +2379,7 @@ ul.menu_r li a:hover, ul.menu_r li a.now {
     width: 238px;
     height: 228px;
     overflow: hidden;
-    background: url(../images/line.gif) no-repeat right 122px;
+    background: url(../images/s_line.gif) no-repeat right 122px;
     float: left;
     border-left: 1px solid #eaeaea;
     border-right: 1px solid #eaeaea;
@@ -2660,7 +2660,7 @@ ul.menu_r li a:hover, ul.menu_r li a.now {
 
 .reg_c {
     width: 475px;
-    height: 625px;
+    height: 725px;
     overflow: hidden;
     background-color: #FFF;
     float: right;
@@ -2810,7 +2810,7 @@ ul.cate li {
     left: 0;
     z-index: 1;
     opacity: .8;
-    *filter: alpha(opacity=80)
+    *filter: alpha(80)
 }
 
 .nban .slide_info_card .slide_info_card_text {
@@ -4213,7 +4213,7 @@ table.jud_list tr td {
     left: 0;
     z-index: 1;
     opacity: .8;
-    *filter: alpha(opacity=80)
+    *filter: alpha(80)
 }
 
 .n_ban .slide_info_card .slide_info_card_text {

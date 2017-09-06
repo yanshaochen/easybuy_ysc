@@ -78,16 +78,19 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
     get the parents img
      */
     @Override
-    public String getImageByParentId(String id) throws Exception {
-        String sql = "select epp_img from easybuy_product_parent where epp_id=?;";
+    public List<String> getImageByParentId(String id) throws Exception {
+        List<String> images = new ArrayList<>();
+        String sql = "select epp_img,epp_img1,epp_img2 from easybuy_product_parent where epp_id=?;";
         ResultSet resultSet = executeQuery(sql, id);
         String epp_img = null;
         if (resultSet.next()) {
-            epp_img = resultSet.getString("epp_img");
+            images.add(resultSet.getString("epp_img"));
+            images.add(resultSet.getString("epp_img1"));
+            images.add(resultSet.getString("epp_img2"));
         }
         resultSet.close();
         closeResources();
-        return epp_img;
+        return images;
     }
 
     /*
@@ -170,8 +173,8 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
      */
     @Override
     public boolean addParent(Map<String, String> param) throws Exception {
-        String sql = "insert into easybuy_product_parent values(default,?,?);";
-        int count = executeUpdate(sql, param.get("epp_name"), param.get("epp_img"));
+        String sql = "insert into easybuy_product_parent values(default,?,?,?,?);";
+        int count = executeUpdate(sql, param.get("epp_name"), param.get("epp_img"), param.get("epp_img1"), param.get("epp_img2"));
         return count > 0;
     }
 
@@ -232,8 +235,8 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
 
     @Override
     public boolean doModParent(Map<String, String> param) throws Exception {
-        String sql = "update easybuy_product_parent set epp_name=?,epp_img=? where epp_id=?;";
-        int count = executeUpdate(sql, param.get("epp_name"), param.get("epp_img"), param.get("epp_id"));
+        String sql = "update easybuy_product_parent set epp_name=?,epp_img=?,epp_img1=?,epp_img2=? where epp_id=?;";
+        int count = executeUpdate(sql, param.get("epp_name"), param.get("epp_img"), param.get("epp_img1"), param.get("epp_img2"), param.get("epp_id"));
         return count > 0;
     }
 
@@ -242,12 +245,14 @@ public class CategoryDAOImpl extends BaseDAO implements ICategoryDAO {
      */
     private Easybuy_product_parent getParentById(Long key) throws Exception {
         Easybuy_product_parent parent = new Easybuy_product_parent();
-        String sql = "select epp_id,epp_name,epp_img from easybuy_product_parent where epp_id=?;";
+        String sql = "select epp_id,epp_name,epp_img,epp_img1,epp_img2 from easybuy_product_parent where epp_id=?;";
         ResultSet resultSet = executeQuery(sql, key);
         if (resultSet.next()) {
             parent.setEpp_id(resultSet.getLong("epp_id"));
             parent.setEpp_name(resultSet.getString("epp_name"));
             parent.setEpp_img(resultSet.getString("epp_img"));
+            parent.setEpp_img1(resultSet.getString("epp_img1"));
+            parent.setEpp_img2(resultSet.getString("epp_img2"));
         }
         return parent;
     }

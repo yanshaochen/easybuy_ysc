@@ -11,10 +11,11 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 /**
+ *
  * Created by master on 17-8-22.
  */
-@WebFilter(filterName = "UserFilter", urlPatterns = {"/UserServlet/*", "/jsp/*"}, initParams = {
-        @WebInitParam(name = "excludedURL", value = "/UserServlet/(Login|Register|Product|List|AjaxProduct|AjaxCategory)Servlet")
+@WebFilter(filterName = "UserFilter", urlPatterns = {"/UserServletF/*", "/jsp/*"}, initParams = {
+        @WebInitParam(name = "excludedURL", value = "/UserServlet/*")
 })
 public class UserLoginFilter implements Filter {
 
@@ -37,7 +38,7 @@ public class UserLoginFilter implements Filter {
         if (login_permission != null) {
             chain.doFilter(req, resp);
         } else {
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
+            response.sendRedirect(request.getContextPath() + "/UserServlet/ProductServlet");
         }
     }
 

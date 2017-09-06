@@ -112,51 +112,15 @@
         </span>
         <!--End 所在收货地区 End-->
         <span class="fr">
-        	<span class="fl">你好，请<a href="Login.html">登录</a>&nbsp; <a href="Regist.html" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a
-                    href="#">我的订单</a>&nbsp;|</span>
-        	<span class="ss">
-            	<div class="ss_list">
-                	<a href="#">收藏夹</a>
-                    <div class="ss_list_bg">
-                    	<div class="s_city_t"></div>
-                        <div class="ss_list_c">
-                        	<ul>
-                            	<li><a href="#">我的收藏夹</a></li>
-                                <li><a href="#">我的收藏夹</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="ss_list">
-                	<a href="#">客户服务</a>
-                    <div class="ss_list_bg">
-                    	<div class="s_city_t"></div>
-                        <div class="ss_list_c">
-                        	<ul>
-                            	<li><a href="#">客户服务</a></li>
-                                <li><a href="#">客户服务</a></li>
-                                <li><a href="#">客户服务</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="ss_list">
-                	<a href="#">网站导航</a>
-                    <div class="ss_list_bg">
-                    	<div class="s_city_t"></div>
-                        <div class="ss_list_c">
-                        	<ul>
-                            	<li><a href="#">网站导航</a></li>
-                                <li><a href="#">网站导航</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </span>
-            <span class="fl">|&nbsp;关注我们：</span>
-            <span class="s_sh"><a href="#" class="sh1">新浪</a><a href="#" class="sh2">微信</a></span>
-            <span class="fr">|&nbsp;<a href="#">手机版&nbsp;<img src="${path}/images/s_tel.png"
-                                                              align="absmiddle"/></a></span>
+            <c:if test="${user_login_permission!=null}">
+                <span><a href="#">${user_login_permission.eu_username}</a>&nbsp;|&nbsp;<a href="#">我的订单</a>&nbsp;|&nbsp;<a
+                        href="#">后台管理</a>&nbsp;|&nbsp;<a
+                        href="#">注销</a>&nbsp;</span>
+            </c:if>
+            <c:if test="${user_login_permission==null}">
+                <span class="fl">你好，请<a href="${path}/login.jsp">登录</a>&nbsp; <a href="${path}/regist.jsp"
+                                                                                 style="color:#ff4e00;">免费注册</a></span>
+            </c:if>
         </span>
     </div>
 </div>
@@ -167,8 +131,6 @@
             <input type="text" value="" class="s_ipt"/>
             <input type="submit" value="搜索" class="s_btn"/>
         </form>
-        <span class="fl"><a href="#">咖啡</a><a href="#">iphone 6S</a><a href="#">新鲜美食</a><a href="#">蛋糕</a><a href="#">日用品</a><a
-                href="#">连衣裙</a></span>
     </div>
     <div class="i_car">
         <div class="car_t">购物车 [ <span>3</span> ]</div>
@@ -235,7 +197,7 @@
                         </li>
                     </c:forEach>
                 </ul>
-                <%--Ajax实现三级分类,首页只要刷新父级即可.由于会覆盖原有js,此处不猜用此技术--%>
+                <%--Ajax实现三级分类--%>
                 <%--<script>
                     $(".leftNav ul li").mouseover(function () {
                         var epp_id = $(this).attr('class');
@@ -307,104 +269,14 @@
             </ul>
         </div>
     </div>
-    <!--Begin 热门商品 Begin-->
-    <div class="content mar_10">
-        <div class="h_l_img">
-            <c:forEach var="item" items="${top10}" varStatus="status">
-                <c:if test="${status.first}">
-                    <div class="img"><img src="${path}/images/${item.ep_img}" width="188" height="188"/></div>
-                    <div class="pri_bg">
-                        <span class="price fl">￥${item.ep_price}</span>
-                        <span class="fr">16R</span>
-                    </div>
-                </c:if>
-            </c:forEach>
-        </div>
-        <div class="hot_pro">
-            <div id="featureContainer">
-                <div id="feature">
-                    <div id="block">
-                        <div id="botton-scroll">
-                            <ul class="featureUL">
-                                <c:forEach var="item" items="${top10}">
-                                    <li class="featureBox">
-                                        <div class="box">
-                                            <div class="h_icon"><img src="${path}/images/hot.png" width="50"
-                                                                     height="50"/>
-                                            </div>
-                                            <div class="imgbg">
-                                                <a href="#"><img src="${item}/images/${item.ep_img}" width="160"
-                                                                 height="136"/></a>
-                                            </div>
-                                            <div class="name">
-                                                <a href="#">
-                                                    <h2>${item.ep_name}</h2>
-                                                        ${item.ep_title}
-                                                </a>
-                                            </div>
-                                            <div class="price">
-                                                <font>￥<span>${item.ep_price}</span></font>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </div>
-                    </div>
-                    <a class="h_prev" href="javascript:void(0);">Previous</a>
-                    <a class="h_next" href="javascript:void(0);">Next</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Begin 限时特卖 Begin-->
-    <div class="i_t mar_10">
-        <span class="fl">限时特卖</span>
-        <span class="i_mores fr"><a href="#">更多</a></span>
-    </div>
-    <div class="content">
-        <div class="i_sell">
-            <div id="imgPlay">
-                <ul class="imgs" id="actor">
-                    <c:forEach var="item" items="${limit8}" varStatus="status">
-                        <li><a href="#"><img src="${path}/images/${item.ep_img}" width="211" height="357"/></a></li>
-                    </c:forEach>
-                </ul>
-                <div class="previ">上一张</div>
-                <div class="nexti">下一张</div>
-            </div>
-        </div>
-        <div class="sell_right">
-            <c:forEach var="item" items="${limit8}" varStatus="status">
-                <div class="${item.ep_id}"
-                     style="width: 244px;height: 177px;overflow: hidden;border-bottom: 1px solid #eaeaea;
-position: relative;float: left;">
-                    <div class="s_img"><a href="#"><img src="${path}/images/${item.ep_img}" width="185"
-                                                        height="155"/></a></div>
-                    <div class="s_price">￥<span>${item.ep_price}</span></div>
-                    <div class="s_name">
-                        <h2><a href="#">${item.ep_name}</a></h2>
-                        倒计时：<span>1</span> 时 <span>30</span> 分 <span>28</span> 秒
-                    </div>
-                </div>
-            </c:forEach>
-        </div>
-    </div>
-    <!--End 限时特卖 End-->
     <div class="content mar_20">
         <img src="${path}/images/mban_1.jpg" width="1200" height="110"/>
     </div>
-
     <c:forEach var="parentUtil" items="${parentUtils}" varStatus="status">
         <!--Begin *** Begin-->
         <div class="i_t mar_10">
             <span class="floor_num">${status.count}F</span>
             <span class="fl">${parentUtil.product_parent.epp_name}</span>
-            <span class="i_mores fr">
-                <c:forEach var="categoryUtil" items="${parentUtil.categoryUtils}" varStatus="status">
-                    &nbsp; &nbsp; &nbsp;<a href="#">${categoryUtil.product_category.epc_name}</a>
-                </c:forEach>
-            </span>
         </div>
 
         <div class="content">
@@ -412,12 +284,10 @@ position: relative;float: left;">
                 <div class="fre_ban">
                     <div id="imgPlay1">
                             <%--The parent img--%>
-                        <ul class="imgs" id="actor1">
+                        <ul>
                             <li><a href="#"><img src="${path}/images/${parentUtil.product_parent.epp_img}" width="211"
                                                  height="286"/></a></li>
                         </ul>
-                        <div class="prevf">上一张</div>
-                        <div class="nextf">下一张</div>
                     </div>
                 </div>
                 <div class="fresh_txt">
@@ -430,21 +300,14 @@ position: relative;float: left;">
             </div>
             <div class="fresh_mid">
                 <ul class="ysc_mid" id="${parentUtil.product_parent.epp_id}">
-                        <%--<li>
-                            <div class="name"><a href="#">新鲜美味 进口美食</a></div>
-                            <div class="price">
-                                <font>￥<span>198.00</span></font> &nbsp; 26R
-                            </div>
-                            <div class="img"><a href="#"><img src="${path}/images/fre_1.jpg" width="185" height="155"/></a>
-                            </div>
-                        </li>--%>
+
                 </ul>
             </div>
             <div class="fresh_right">
                 <ul>
-                    <li><a href="#"><img src="${path}/images/${parentUtil.product_parent.epp_img}" width="260"
+                    <li><a href="#"><img src="${path}/images/${parentUtil.product_parent.epp_img1}" width="260"
                                          height="220"/></a></li>
-                    <li><a href="#"><img src="${path}/images/${parentUtil.product_parent.epp_img}" width="260"
+                    <li><a href="#"><img src="${path}/images/${parentUtil.product_parent.epp_img2}" width="260"
                                          height="220"/></a></li>
                 </ul>
             </div>
@@ -466,128 +329,15 @@ position: relative;float: left;">
                         '<div class="price">                                                                                 ' +
                         '    <font>￥<span>' + dom.ep_price + '</span></font> &nbsp;                                                   ' +
                         '</div>                                                                                              ' +
-                        '<div class="img"><a href="#"><img src="' + '${path}/images/' + dom.ep_img + '" width="185" height="155"/></a>     ' +
+                        '<div class="img"><a href="${path}/UserServlet/ProductServlet?action=showDetail&ep_id=' + dom.ep_id + '"><img src="' + '${path}/images/' + dom.ep_img + '" width="185" height="155"/></a>     ' +
                         '    </div>                                                                                         ' +
                         '    </li>                '
                     );
                 });
             });
         });
-        /*var epp_id = $(this).attr('class');
-         $.getJSON("$?path?/UserServlet/AjaxCategoryServlet", {"epp_id": epp_id}, function (result) {
-         $('.zj_l_c').html("");
-         $.each(result, function (i, dom) {
-         $('.zj_l_c').append(
-         "<h2>" + dom.product_category.epc_name + "</h2>"
-         );
-         $.each(dom.product_children, function (i, child) {
-         $('.zj_l_c').append(
-         "<a href='#'>" + child.epch_name + "</a>|"
-         );
-         });
-         });
-         });*/
     });
 </script>
-<!--Begin 猜你喜欢 Begin-->
-<div class="i_t mar_10">
-    <span class="fl">猜你喜欢</span>
-</div>
-<div class="like">
-    <div id="featureContainer1">
-        <div id="feature1">
-            <div id="block1">
-                <div id="botton-scroll1">
-                    <ul class="featureUL">
-                        <li class="featureBox">
-                            <div class="box">
-                                <div class="imgbg">
-                                    <a href="#"><img src="${path}/images/hot1.jpg" width="160" height="136"/></a>
-                                </div>
-                                <div class="name">
-                                    <a href="#">
-                                        <h2>德国进口</h2>
-                                        德亚全脂纯牛奶200ml*48盒
-                                    </a>
-                                </div>
-                                <div class="price">
-                                    <font>￥<span>189</span></font> &nbsp; 26R
-                                </div>
-                            </div>
-                        </li>
-                        <li class="featureBox">
-                            <div class="box">
-                                <div class="imgbg">
-                                    <a href="#"><img src="${path}/images/hot2.jpg" width="160" height="136"/></a>
-                                </div>
-                                <div class="name">
-                                    <a href="#">
-                                        <h2>iphone 6S</h2>
-                                        Apple/苹果 iPhone 6s Plus公开版
-                                    </a>
-                                </div>
-                                <div class="price">
-                                    <font>￥<span>5288</span></font> &nbsp; 25R
-                                </div>
-                            </div>
-                        </li>
-                        <li class="featureBox">
-                            <div class="box">
-                                <div class="imgbg">
-                                    <a href="#"><img src="${path}/images/hot3.jpg" width="160" height="136"/></a>
-                                </div>
-                                <div class="name">
-                                    <a href="#">
-                                        <h2>倩碧特惠组合套装</h2>
-                                        倩碧补水组合套装8折促销
-                                    </a>
-                                </div>
-                                <div class="price">
-                                    <font>￥<span>368</span></font> &nbsp; 18R
-                                </div>
-                            </div>
-                        </li>
-                        <li class="featureBox">
-                            <div class="box">
-                                <div class="imgbg">
-                                    <a href="#"><img src="${path}/images/hot4.jpg" width="160" height="136"/></a>
-                                </div>
-                                <div class="name">
-                                    <a href="#">
-                                        <h2>品利特级橄榄油</h2>
-                                        750ml*4瓶装组合 西班牙原装进口
-                                    </a>
-                                </div>
-                                <div class="price">
-                                    <font>￥<span>280</span></font> &nbsp; 30R
-                                </div>
-                            </div>
-                        </li>
-                        <li class="featureBox">
-                            <div class="box">
-                                <div class="imgbg">
-                                    <a href="#"><img src="${path}/images/hot4.jpg" width="160" height="136"/></a>
-                                </div>
-                                <div class="name">
-                                    <a href="#">
-                                        <h2>品利特级橄榄油</h2>
-                                        750ml*4瓶装组合 西班牙原装进口
-                                    </a>
-                                </div>
-                                <div class="price">
-                                    <font>￥<span>280</span></font> &nbsp; 30R
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <a class="l_prev" href="javascript:void(0);">Previous</a>
-            <a class="l_next" href="javascript:void(0);">Next</a>
-        </div>
-    </div>
-</div>
-<!--End 猜你喜欢 End-->
 
 <!--Begin Footer Begin -->
 <div class="b_btm_bg b_btm_c">

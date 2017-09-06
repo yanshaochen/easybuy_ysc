@@ -17,7 +17,7 @@ import java.util.Map;
 public class CategoryServiceImpl implements ICategoryService {
 
     @Override
-    public String getImageByParentId(String id) {
+    public List<String> getImageByParentId(String id) {
         ICategoryDAO dao = new CategoryDAOImpl();
         try {
             return dao.getImageByParentId(id);

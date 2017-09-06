@@ -167,6 +167,17 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
+    public Easybuy_product getProductByEp_id(String ep_id) {
+        IProductDAO dao = new ProductDAOImpl();
+        try {
+            return dao.getProductByEp_id(ep_id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public List<Easybuy_product> getProductsInPage(PageUtil page, String searchKey) {
         IProductDAO dao = new ProductDAOImpl();
         try {

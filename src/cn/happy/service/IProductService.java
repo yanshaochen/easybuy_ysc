@@ -43,4 +43,6 @@ public interface IProductService {
     boolean addProduct(Map<String, String> param);
 
     boolean deleteProductById(String ep_id);
+
+    Easybuy_product getProductByEp_id(String ep_id);
 }

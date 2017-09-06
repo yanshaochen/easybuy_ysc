@@ -52,4 +52,6 @@ public interface IProductDAO {
     boolean addProduct(Map<String, String> param) throws Exception;
 
     boolean deleteProductById(String ep_id) throws Exception;
+
+    Easybuy_product getProductByEp_id(String ep_id) throws Exception;
 }

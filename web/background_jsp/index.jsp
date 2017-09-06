@@ -24,6 +24,9 @@
     <div class="logo margin-big-left fadein-top">
         <h1><img src="../images/y.jpg" class="radius-circle rotate-hover" height="50" alt=""/>后台管理中心</h1>
     </div>
+    <div class="head-l"><a class="button button-little bg-green"
+                           href="${path}/UserServlet/ProductServlet" target="_blank"><span
+            class="icon-power-off"></span> 前往首页</a></div>
     <div class="head-l"><a class="button button-little bg-red"
                            href="${path}/AdminServlet/LogoutServlet?type=admin"><span
             class="icon-power-off"></span> 退出登录</a></div>

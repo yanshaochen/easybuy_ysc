@@ -28,6 +28,9 @@
                     <a data-toggle="collapse" data-parent="#accordion"
                        href="#${parentUtil.product_parent.epp_id}">
                             ${parentUtil.product_parent.epp_name}
+                        <img src="${path}/images/${parentUtil.product_parent.epp_img}" alt="" width="42" height="30"/>
+                        <img src="${path}/images/${parentUtil.product_parent.epp_img1}" alt="" width="42" height="30"/>
+                        <img src="${path}/images/${parentUtil.product_parent.epp_img2}" alt="" width="42" height="30"/>
                         <a href="javascript:void(0)"
                            onclick="modParent(${parentUtil.product_parent.epp_id})"><span>&nbsp;&nbsp;&nbsp;修改</span></a>
                         <div id="modParent_div" style="display: none"></div>
@@ -94,9 +97,7 @@
                 <form id="addParent" action="${path}/AdminServlet/SetCategoriesServlet?action=addParent" method="post"
                       enctype="multipart/form-data">
                     <div class="form-group">
-                        <div class="label">
-                            <label>一级分类名称：</label>
-                        </div>
+                        一级分类名称:
                         <div class="field">
                             <input id="epp_name" type="text" class="input w50" value="" name="epp_name"
                                    data-validate="required:请输入名称"/>
@@ -104,18 +105,27 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="label">
-                            <label>图片：</label>
-                        </div>
+                        图片:
                         <div class="field">
-                            <input type="file" name="epp_img" value="+ 浏览上传"/>
-                            <div class="tipss">图片尺寸：1920*500</div>
+                            <input type="file" name="epp_img" value="+ 浏览上传" data-validate="required:请上传图片"/>
+                            <div class="tips">图片尺寸：1920*500</div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="label">
-                            <label></label>
+                        装饰图1:
+                        <div class="field">
+                            <input type="file" name="epp_img1" value="+ 浏览上传" data-validate="required:请上传图片"/>
+                            <div class="tips">图片尺寸：1920*500</div>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        装饰图2:
+                        <div class="field">
+                            <input type="file" name="epp_img2" value="+ 浏览上传" data-validate="required:请上传图片"/>
+                            <div class="tips">图片尺寸：1920*500</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="field">
                             <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
                         </div>
@@ -177,7 +187,7 @@
         });
     }
     function modParent(epp_id) {
-        $("#modParent_div").html('<form id="modParent_form" action="/easybuy/AdminServlet/SetCategoriesServlet?action=modParent" method="post" enctype="multipart/form-data"> <input name="epp_id" value="' + epp_id + '" style="display: none">一级分类名称： <input class="input w50" value="" name="epp_name" data-validate="required:请输入名称" type="text">图片: <input type="file" name="epp_img" value="+ 浏览上传"/> <input value="修改" type="submit"> </form>')
+        $("#modParent_div").html('<form id="modParent_form" action="/easybuy/AdminServlet/SetCategoriesServlet?action=modParent" method="post" enctype="multipart/form-data"> <input name="epp_id" value="' + epp_id + '" style="display: none">一级分类名称： <input class="input w50" value="" name="epp_name" data-validate="required:请输入名称" type="text"><br>图片: <input type="file" name="epp_img" value="+ 浏览上传" data-validate="required:请上传图片"/>装饰图1: <input type="file" name="epp_img1" value="+ 浏览上传" data-validate="required:请上传图片"/>装饰图2: <input type="file" name="epp_img2" value="+ 浏览上传" data-validate="required:请上传图片"/> <input value="修改" type="submit"> </form>')
         layer.open({
             type: 1,
             title: '修改一级分类',

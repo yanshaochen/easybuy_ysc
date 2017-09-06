@@ -1,29 +1,30 @@
 package cn.happy.bean;
 
 public class Easybuy_user {
-    private Long eu_user_id;
-    private String eu_user_name;
+    private Long eu_id;
+    private String eu_username;
     private String eu_password;
-    private String eu_sex;
+    private Long eu_sex;
     private String eu_email;
     private String eu_mobile;
-    private String eu_address;
     private Long eu_type_id;
+    private String eu_identitycode;
+    private String eu_realname;
 
-    public Long getEu_user_id() {
-        return eu_user_id;
+    public Long getEu_id() {
+        return eu_id;
     }
 
-    public void setEu_user_id(Long eu_user_id) {
-        this.eu_user_id = eu_user_id;
+    public void setEu_id(Long eu_id) {
+        this.eu_id = eu_id;
     }
 
-    public String getEu_user_name() {
-        return eu_user_name;
+    public String getEu_username() {
+        return eu_username;
     }
 
-    public void setEu_user_name(String eu_user_name) {
-        this.eu_user_name = eu_user_name;
+    public void setEu_username(String eu_username) {
+        this.eu_username = eu_username;
     }
 
     public String getEu_password() {
@@ -34,11 +35,11 @@ public class Easybuy_user {
         this.eu_password = eu_password;
     }
 
-    public String getEu_sex() {
+    public Long getEu_sex() {
         return eu_sex;
     }
 
-    public void setEu_sex(String eu_sex) {
+    public void setEu_sex(Long eu_sex) {
         this.eu_sex = eu_sex;
     }
 
@@ -58,19 +59,27 @@ public class Easybuy_user {
         this.eu_mobile = eu_mobile;
     }
 
-    public String getEu_address() {
-        return eu_address;
-    }
-
-    public void setEu_address(String eu_address) {
-        this.eu_address = eu_address;
-    }
-
     public Long getEu_type_id() {
         return eu_type_id;
     }
 
     public void setEu_type_id(Long eu_type_id) {
         this.eu_type_id = eu_type_id;
+    }
+
+    public String getEu_identitycode() {
+        return eu_identitycode;
+    }
+
+    public void setEu_identitycode(String eu_identitycode) {
+        this.eu_identitycode = eu_identitycode;
+    }
+
+    public String getEu_realname() {
+        return eu_realname;
+    }
+
+    public void setEu_realname(String eu_realname) {
+        this.eu_realname = eu_realname;
     }
 }

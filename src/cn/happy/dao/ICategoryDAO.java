@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface ICategoryDAO {
 
-    String getImageByParentId(String id) throws Exception;
+    List<String> getImageByParentId(String id) throws Exception;
 
     boolean deleteCategoriesByParentId(String epp_id) throws Exception;
 

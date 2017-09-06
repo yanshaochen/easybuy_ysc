@@ -186,13 +186,16 @@ public class SetCategoriesServlet extends HttpServlet {
     }
 
     private void deleteExpiredFile(ICategoryService service, String id) {
-        String fileName = service.getImageByParentId(id);
+        List<String> fileName = service.getImageByParentId(id);
         String leftPath = getServletContext().getRealPath("/images/");
-        if (fileName != null && !fileName.equals("")) {
-            File file = new File(leftPath, fileName);
-            if (file.exists() && file.isFile()) {
-                if (!file.delete()) {
-                    logger.error("Parent img delete failed-->" + leftPath + "/" + fileName);
+        for (String item : fileName
+                ) {
+            if (item != null && !item.equals("")) {
+                File file = new File(leftPath, item);
+                if (file.exists() && file.isFile()) {
+                    if (!file.delete()) {
+                        logger.error("Parent img delete failed-->" + leftPath + "/" + item);
+                    }
                 }
             }
         }

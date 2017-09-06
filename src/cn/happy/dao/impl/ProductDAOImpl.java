@@ -112,7 +112,7 @@ public class ProductDAOImpl extends BaseDAO implements IProductDAO {
 
     @Override
     public Easybuy_product getProductById(String ep_id) throws Exception {
-        String sql = "select ep_id,ep_name,ep_title,ep_price,ep_brand,ep_stock,ep_parent_id,ep_category_id,ep_child_id from easybuy_product where ep_id=?;";
+        String sql = "select ep_id,ep_name,ep_description,ep_title,ep_price,ep_brand,ep_stock,ep_parent_id,ep_category_id,ep_child_id from easybuy_product where ep_id=?;";
         ResultSet resultSet = executeQuery(sql, ep_id);
         List<Easybuy_product> products = new SomeConverts().resultSetToGenerics(resultSet, Easybuy_product.class);
         resultSet.close();
@@ -180,6 +180,18 @@ public class ProductDAOImpl extends BaseDAO implements IProductDAO {
         String sql = "update easybuy_product set ep_delflag=1 where ep_id=?;";
         int count = executeUpdate(sql, ep_id);
         return count > 0;
+    }
+
+    @Override
+    public Easybuy_product getProductByEp_id(String ep_id) throws Exception {
+        String sql = "select ep_id,ep_name,ep_description,ep_title,ep_price,ep_img,ep_brand,ep_stock,ep_parent_id,ep_category_id,ep_child_id,epp_name,epc_name,epch_name from " +
+                "easybuy_product,easybuy_product_parent,easybuy_product_category,easybuy_product_child " +
+                "where ep_parent_id=epp_id and ep_category_id=epc_id and ep_child_id=epch_id and ep_id=?;";
+        ResultSet resultSet = executeQuery(sql, ep_id);
+        List<Easybuy_product> products = new SomeConverts().resultSetToGenerics(resultSet, Easybuy_product.class);
+        resultSet.close();
+        closeResources();
+        return products.get(0);
     }
 
     @Override

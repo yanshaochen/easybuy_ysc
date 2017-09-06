@@ -1,7 +1,9 @@
 package cn.happy.servlet;
 
 import cn.happy.service.IAdminLoginService;
+import cn.happy.service.IUserValidateService;
 import cn.happy.service.impl.AdminLoginServiceImpl;
+import cn.happy.service.impl.UserValidateServiceImpl;
 import cn.happy.util.Md5Util;
 import org.apache.log4j.Logger;
 
@@ -14,6 +16,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 /**
+ *
  * Created by master on 17-8-25.
  */
 @WebServlet(name = "LoginServlet", urlPatterns = {"/AdminServlet/LoginServlet", "/UserServlet/LoginServlet"})
@@ -22,8 +25,29 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String type = request.getParameter("type");
         //管理员登录
-        if (type != null && type.equals("admin"))
+        if (type != null && type.equals("admin")) {
             doAdminLogin(request, response);
+            return;
+        }
+        //用户登录
+        if (type != null && type.equals("user")) {
+            doUserLogin(request, response);
+            return;
+        }
+    }
+
+    private void doUserLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("loginName");
+        String password = request.getParameter("password");
+        IUserValidateService service = new UserValidateServiceImpl();
+        if (service.corrected(name, password)) {
+            request.getSession().setAttribute("user_login_permission", service.getUserByUserName(name));
+            request.getRequestDispatcher("/UserServlet/ProductServlet").forward(request, response);
+        } else {
+            request.setAttribute("status", "failed");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        }
+
     }
 
     private void doAdminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

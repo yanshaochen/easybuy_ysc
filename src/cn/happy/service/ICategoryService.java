@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface ICategoryService {
 
-    String getImageByParentId(String id);
+    List<String> getImageByParentId(String id);
 
     boolean deleteCategoriesByParentId(String epp_id);
 

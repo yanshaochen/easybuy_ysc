@@ -1,11 +1,14 @@
 package cn.happy.servlet;
 
+//import cn.happy.bean.Easybuy_product;
 import cn.happy.bean.Easybuy_product;
 import cn.happy.bean.Easybuy_slider;
 import cn.happy.service.ICategoryService;
+//import cn.happy.service.IProductService;
 import cn.happy.service.IProductService;
 import cn.happy.service.ISliderService;
 import cn.happy.service.impl.CategoryServiceImpl;
+//import cn.happy.service.impl.ProductServiceImpl;
 import cn.happy.service.impl.ProductServiceImpl;
 import cn.happy.service.impl.SliderServiceImpl;
 import cn.happy.util.ParentUtil;
@@ -29,13 +32,22 @@ public class ProductServlet extends HttpServlet {
         ICategoryService categoryService = new CategoryServiceImpl();
         List<ParentUtil> parentUtils = categoryService.getParentUtils();
         request.setAttribute("parentUtils", parentUtils);
-        //show top10 and limit
-        IProductService productService = new ProductServiceImpl();
+        //show top10 and limit,aborted
+        /*IProductService productService = new ProductServiceImpl();
         List<Easybuy_product> top10 = productService.getTop10();
         List<Easybuy_product> limit8 = productService.getLimit();
         request.setAttribute("top10", top10);
-        request.setAttribute("limit8", limit8);
+        request.setAttribute("limit8", limit8);*/
         //sliders
+        IProductService productService = new ProductServiceImpl();
+        String action = request.getParameter("action");
+        if (action != null && action.equals("showDetail")) {
+            String ep_id = request.getParameter("ep_id");
+            Easybuy_product product = productService.getProductByEp_id(ep_id);
+            request.setAttribute("product", product);
+            request.getRequestDispatcher("/product.jsp").forward(request, response);
+        }
+
         ISliderService sliderService = new SliderServiceImpl();
         List<Easybuy_slider> sliders = sliderService.getSliders();
         request.setAttribute("sliders", sliders);

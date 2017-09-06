@@ -83,7 +83,9 @@ public class SomeConverts {
                     e.printStackTrace();
                 }
             } else {
-                fileName = String.valueOf(System.currentTimeMillis()) + item.getName().substring(item.getName().lastIndexOf("."));
+                Random random = new Random();
+                String s = String.valueOf(random.nextInt(9999) % (9000) + 1000);
+                fileName = String.valueOf(System.currentTimeMillis()) + s + item.getName().substring(item.getName().lastIndexOf("."));
                 leftPath = servletContext.getRealPath("/images/");
                 //upload empty or not
                 if (item.getName() != null && !item.getName().equals("")) {
