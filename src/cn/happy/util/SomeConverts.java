@@ -85,10 +85,11 @@ public class SomeConverts {
             } else {
                 Random random = new Random();
                 String s = String.valueOf(random.nextInt(9999) % (9000) + 1000);
-                fileName = String.valueOf(System.currentTimeMillis()) + s + item.getName().substring(item.getName().lastIndexOf("."));
-                leftPath = servletContext.getRealPath("/images/");
+                System.out.println(item.getName());
                 //upload empty or not
                 if (item.getName() != null && !item.getName().equals("")) {
+                    fileName = String.valueOf(System.currentTimeMillis()) + s + item.getName().substring(item.getName().lastIndexOf("."));
+                    leftPath = servletContext.getRealPath("/images/");
                     File file = new File(leftPath, fileName);
                     try {
                         item.write(file);

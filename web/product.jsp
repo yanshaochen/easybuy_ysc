@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
 Created by IntelliJ IDEA.
 User: master
@@ -120,21 +121,26 @@ To change this template use File | Settings | File Templates.
         </form>
     </div>
     <div class="i_car">
-        <div class="car_t">购物车 [ <span>3****************************</span> ]</div>
+        <div class="car_t">购物车 [ <span>${fn:length(cartUtil.cartSubs)}</span> ]</div>
         <div class="car_bg">
             <!--Begin 购物车未登录 Begin-->
             <div class="un_login">还未登录！<a href="#" style="color:#ff4e00;">马上登录</a> 查看购物车！</div>
             <!--End 购物车未登录 End-->
             <!--Begin 购物车已登录 Begin-->
             <ul class="cars">
-                <li>
-                    <div class="img"><a href="#"><img src="images/car1.jpg" width="58" height="58"/></a></div>
-                    <div class="name"><a href="#">法颂浪漫梦境50ML 香水女士持久清新淡香 送2ML小样3只</a></div>
-                    <div class="price"><font color="#ff4e00">￥399</font> X1</div>
-                </li>
-
+                <c:set value="0" var="sum"/>
+                <c:forEach var="item" items="${cartUtil.cartSubs}">
+                    <li>
+                        <div class="img"><a href="#"><img src="${path}/images/${item.product.ep_img}" width="58"
+                                                          height="58"/></a></div>
+                        <div class="name"><a href="#">${item.product.ep_name}</a></div>
+                        <div class="price"><font color="#ff4e00">￥${item.product.ep_price}</font> X${item.esc_quantity}
+                        </div>
+                    </li>
+                    <c:set value="${sum + item.totalPrice}" var="sum"/>
+                </c:forEach>
             </ul>
-            <div class="price_sum">共计&nbsp; <font color="#ff4e00">￥</font><span>1058</span></div>
+            <div class="price_sum">共计&nbsp; <font color="#ff4e00">￥</font><span>${sum}</span></div>
             <div class="price_a"><a href="#">去购物车结算</a></div>
             <!--End 购物车已登录 End-->
         </div>
@@ -197,7 +203,6 @@ To change this template use File | Settings | File Templates.
         <span class="fl">全部 > ${product.epp_name} > ${product.epc_name} > ${product.epch_name} </span>
     </div>
     <div class="content">
-        <p>啊啊啊啊啊啊啊:${product.ep_img}</p>
         <div id="tsShopContainer">
             <div id="tsImgS"><a href="${path}/images/${product.ep_img}" title="Images" class="MagicZoom" id="MagicZoom"><img
                     src="${path}/images/${product.ep_img}" width="390" height="390"/></a></div>
@@ -230,15 +235,20 @@ To change this template use File | Settings | File Templates.
             </div>
             <div class="des_join">
                 <div class="j_nums">
-                    <input value="1" name="quantity" class="n_ipt" type="text">
+                    <input id="my_quantity" value="1" name="quantity" class="n_ipt" type="text">
                     <input value="" onclick="addUpdate(jq(this));" class="n_btn_1" type="button">
                     <input value="" onclick="jianUpdate(jq(this));" class="n_btn_2" type="button">
-                    <input name="productStock" value="1" type="hidden">
                 </div>
-                <span class="fl">
-                     <img src="${path}/images/j_car.png" onclick="addCart();">
+                <span>
+                     <img src="${path}/images/j_car.png" onclick="addCart()">
                 </span>
             </div>
+            <script>
+                function addCart() {
+                    var quantity = jQuery("#my_quantity").val();
+                    location.href = '${path}/UserServlet/CartServlet?action=addCart&ep_id=${product.ep_id}&quantity=' + quantity;
+                }
+            </script>
         </div>
     </div>
     <div class="content mar_20">
@@ -261,22 +271,13 @@ To change this template use File | Settings | File Templates.
                            border="0" align="center">
                         <tbody>
                         <tr>
-                            <td>商品名称：电饭锅</td>
-                            <td>商品价格：158.0</td>
-                            <td>品牌： 迪奥（Dior）</td>
-                            <td>上架时间：2015-09-06 09:19:09</td>
+                            <td>商品名称：${product.ep_name}</td>
+                            <td>商品价格：${product.ep_price}</td>
+                            <td>品牌： ${product.ep_brand}</td>
+
                         </tr>
                         <tr>
-                            <td>商品毛重：160.00g</td>
-                            <td>商品产地：法国</td>
-                            <td>香调：果香调香型：淡香水/香露EDT</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>容量：1ml-15ml</td>
-                            <td>类型：女士香水，Q版香水，组合套装</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
+                            <td>描述：${product.ep_description}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -296,7 +297,7 @@ To change this template use File | Settings | File Templates.
                         </tbody>
                     </table>
                     <p align="center">
-                        <img src="/EasyBuy/files/40C3B76BA31246618E3CFC8723D33517.jpg" width="185" height="155">
+                        <img src="${path}/images/${product.ep_img}" width="185" height="155">
                     </p>
                 </div>
             </div>
@@ -339,28 +340,28 @@ To change this template use File | Settings | File Templates.
             <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;"
                    cellspacing="0" cellpadding="0">
                 <tr>
-                    <td width="72"><img src="images/b1.png" width="62" height="62"/></td>
+                    <td width="72"><img src="${path}/images/b1.png" width="62" height="62"/></td>
                     <td><h2>正品保障</h2>正品行货 放心购买</td>
                 </tr>
             </table>
             <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;"
                    cellspacing="0" cellpadding="0">
                 <tr>
-                    <td width="72"><img src="images/b2.png" width="62" height="62"/></td>
+                    <td width="72"><img src="${path}/images/b2.png" width="62" height="62"/></td>
                     <td><h2>满38包邮</h2>满38包邮 免运费</td>
                 </tr>
             </table>
             <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;"
                    cellspacing="0" cellpadding="0">
                 <tr>
-                    <td width="72"><img src="images/b3.png" width="62" height="62"/></td>
+                    <td width="72"><img src="${path}/images/b3.png" width="62" height="62"/></td>
                     <td><h2>天天低价</h2>天天低价 畅选无忧</td>
                 </tr>
             </table>
             <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;"
                    cellspacing="0" cellpadding="0">
                 <tr>
-                    <td width="72"><img src="images/b4.png" width="62" height="62"/></td>
+                    <td width="72"><img src="${path}/images/b4.png" width="62" height="62"/></td>
                     <td><h2>准时送达</h2>收货时间由你做主</td>
                 </tr>
             </table>
@@ -408,17 +409,20 @@ To change this template use File | Settings | File Templates.
             </p>
         </div>
         <div class="b_er">
-            <div class="b_er_c"><img src="images/er.gif" width="118" height="118"/></div>
-            <img src="images/ss.png"/>
+            <div class="b_er_c"><img src="${path}/images/er.gif" width="118" height="118"/></div>
+            <img src="${path}/images/ss.png"/>
         </div>
     </div>
     <div class="btmbg">
         <div class="btm">
             备案/许可证编号：蜀ICP备12009302号-1-www.dingguagua.com Copyright © 2015-2018 尤洪商城网 All Rights Reserved. 复制必究 ,
             Technical Support: Dgg Group <br/>
-            <img src="images/b_1.gif" width="98" height="33"/><img src="images/b_2.gif" width="98" height="33"/><img
-                src="images/b_3.gif" width="98" height="33"/><img src="images/b_4.gif" width="98" height="33"/><img
-                src="images/b_5.gif" width="98" height="33"/><img src="images/b_6.gif" width="98" height="33"/>
+            <img src="${path}/images/b_1.gif" width="98" height="33"/><img src="${path}/images/b_2.gif" width="98"
+                                                                           height="33"/><img
+                src="${path}/images/b_3.gif" width="98" height="33"/><img src="${path}/images/b_4.gif" width="98"
+                                                                          height="33"/><img
+                src="${path}/images/b_5.gif" width="98" height="33"/><img src="${path}/images/b_6.gif" width="98"
+                                                                          height="33"/>
         </div>
     </div>
     <!--End Footer End -->
@@ -428,7 +432,4 @@ To change this template use File | Settings | File Templates.
 
 <script src="js/ShopShow.js"></script>
 
-<!--[if IE 6]>
-<script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
-<![endif]-->
 </html>

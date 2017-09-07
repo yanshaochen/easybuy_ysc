@@ -93,7 +93,9 @@ public class SetProductsServlet extends HttpServlet {
         try {
             items = upload.parseRequest(request);
             Map<String, String> param = new SomeConverts().fileItemToGenerics(items, getServletContext());
-            deleteExpiredFile(service, param.get("ep_id"));
+            if (param.get("ep_img") != null && !param.get("ep_img").equals("")) {
+                deleteExpiredFile(service, param.get("ep_id"));
+            }
             boolean flag = service.updateProduct(param);
             if (flag)
                 response.sendRedirect("/easybuy/AdminServlet/SetProductsServlet?action=show");

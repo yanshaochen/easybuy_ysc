@@ -5,8 +5,6 @@ public class Easybuy_shopping_cart {
     private Long esc_user_id;
     private Long esc_product_id;
     private Long esc_quantity;
-    private java.sql.Timestamp esc_create_time;
-    private java.sql.Timestamp esc_update_time;
 
     public Long getEsc_id() {
         return esc_id;
@@ -38,21 +36,5 @@ public class Easybuy_shopping_cart {
 
     public void setEsc_quantity(Long esc_quantity) {
         this.esc_quantity = esc_quantity;
-    }
-
-    public java.sql.Timestamp getEsc_create_time() {
-        return esc_create_time;
-    }
-
-    public void setEsc_create_time(java.sql.Timestamp esc_create_time) {
-        this.esc_create_time = esc_create_time;
-    }
-
-    public java.sql.Timestamp getEsc_update_time() {
-        return esc_update_time;
-    }
-
-    public void setEsc_update_time(java.sql.Timestamp esc_update_time) {
-        this.esc_update_time = esc_update_time;
     }
 }
