@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ *
  * Created by master on 17-9-6.
  */
 @WebServlet(name = "AjaxValidateServlet", urlPatterns = {"/UserServlet/AjaxValidateServlet"})

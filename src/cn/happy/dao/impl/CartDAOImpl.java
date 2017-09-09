@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *
  * Created by master on 17-9-8.
  */
 public class CartDAOImpl extends BaseDAO implements ICartDAO {
@@ -22,10 +23,13 @@ public class CartDAOImpl extends BaseDAO implements ICartDAO {
         ResultSet resultSet = executeQuery(sql, eu_id);
         while (resultSet.next()) {
             CartUtil.CartSub cartSub = cartUtil.new CartSub();
+            cartSub.setEsc_id(resultSet.getLong("esc_id"));
             cartSub.setProduct(getProductById(resultSet.getLong("esc_product_id")));
             cartSub.setEsc_quantity(resultSet.getInt("esc_quantity"));
             cartUtil.getCartSubs().add(cartSub);
         }
+        resultSet.close();
+        closeResources();
         return cartUtil;
     }
 
@@ -39,6 +43,20 @@ public class CartDAOImpl extends BaseDAO implements ICartDAO {
             String sql1 = "insert into easybuy_shopping_cart values (default," + eu_id + ",?,?);";
             count += executeUpdate(sql1, item.getProduct().getEp_id(), item.getEsc_quantity());
         }
+        return count > 0;
+    }
+
+    @Override
+    public boolean updateCartByIdAndQuantity(long esc_id, int esc_quantity) throws Exception {
+        String sql = "update easybuy_shopping_cart set esc_quantity=? where esc_id=?;";
+        int count = executeUpdate(sql, esc_quantity, esc_id);
+        return count > 0;
+    }
+
+    @Override
+    public boolean deleteCartById(long esc_id) throws Exception {
+        String sql = "delete from easybuy_shopping_cart where esc_id=?;";
+        int count = executeUpdate(sql, esc_id);
         return count > 0;
     }
 

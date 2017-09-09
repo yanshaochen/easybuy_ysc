@@ -86,6 +86,7 @@ public class CartServiceImpl implements ICartService {
         for (CartUtil.CartSub itemCache : cartUtil.getCartSubs()
                 ) {
             boolean isNewFlag = true;
+            //DB maybe empty,so inner circle
             for (CartUtil.CartSub itemDB : cartUtilDB.getCartSubs()
                     ) {
                 if (itemDB.getProduct().getEp_id().equals(itemCache.getProduct().getEp_id())) {
@@ -97,5 +98,27 @@ public class CartServiceImpl implements ICartService {
                 cartUtilDB.getCartSubs().add(itemCache);
             }
         }
+    }
+
+    @Override
+    public boolean updateCartByIdAndQuantity(long esc_id, int esc_quantity) {
+        ICartDAO dao = new CartDAOImpl();
+        try {
+            return dao.updateCartByIdAndQuantity(esc_id, esc_quantity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteCartById(long esc_id) {
+        ICartDAO dao = new CartDAOImpl();
+        try {
+            return dao.deleteCartById(esc_id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

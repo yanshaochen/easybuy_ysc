@@ -50,14 +50,15 @@ public class LoginServlet extends HttpServlet {
         IUserValidateService service = new UserValidateServiceImpl();
         if (service.corrected(name, password)) {
             Easybuy_user user = service.getUserByUserName(name);
-            //The bucket stops here(cookie and cache)
+            //The bucket stops here(cookie and cache),这里的cartUtil必须是从数据库中获取的,必须携带ID信息
             CartUtil cartUtil = (CartUtil) request.getSession().getAttribute("cartUtil");//缓存中的数据
             if (cartUtil != null) {
                 ICartService cartService = new CartServiceImpl();
                 CartUtil cartUtilDB = cartService.getCartByUser(user.getEu_id());//数据库中的数据
                 cartService.merge(cartUtilDB, cartUtil);//void方法,将cartUtil并入cartUtilDB
                 cartService.setCartByUser(user.getEu_id(), cartUtilDB);
-                request.getSession().setAttribute("cartUtil", cartUtilDB);
+                CartUtil cartByUser = cartService.getCartByUser(user.getEu_id());
+                request.getSession().setAttribute("cartUtil", cartByUser);
             } else {
                 ICartService cartService = new CartServiceImpl();
                 CartUtil cartUtil1 = cartService.getCartByUser(user.getEu_id());

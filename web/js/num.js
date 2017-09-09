@@ -22,6 +22,7 @@ function addUpdate1(jia) {
     var c = jia.parent().find(".car_ipt").val();
     c = parseInt(c) + 1;
     jia.parent().find(".car_ipt").val(c);
+    $.getJSON("")
 }
 
 function jianUpdate1(jian) {

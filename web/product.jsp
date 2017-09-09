@@ -107,9 +107,15 @@ To change this template use File | Settings | File Templates.
         </span>
         <!--End 所在收货地区 End-->
         <span class="fr">
-        	<span class="fl">你好，请<a href="${path}/login.jsp">登录</a>&nbsp; <a href="${path}/regist.jsp"
-                                                                             style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a
-                    href="#">我的订单</a>&nbsp;|</span>
+            <c:if test="${user_login_permission!=null}">
+                <span><a href="#">${user_login_permission.eu_username}</a>&nbsp;|&nbsp;<a href="#">我的订单</a>&nbsp;|&nbsp;<a
+                        href="#">后台管理</a>&nbsp;|&nbsp;<a
+                        href="#">注销</a>&nbsp;</span>
+            </c:if>
+            <c:if test="${user_login_permission==null}">
+                <span class="fl">你好，请<a href="${path}/login.jsp">登录</a>&nbsp; <a href="${path}/regist.jsp"
+                                                                                 style="color:#ff4e00;">免费注册</a></span>
+            </c:if>
         </span>
     </div>
 </div>
@@ -125,7 +131,10 @@ To change this template use File | Settings | File Templates.
         <div class="car_t">购物车 [ <span>${fn:length(cartUtil.cartSubs)}</span> ]</div>
         <div class="car_bg">
             <!--Begin 购物车未登录 Begin-->
-            <div class="un_login">还未登录！<a href="#" style="color:#ff4e00;">马上登录</a> 查看购物车！</div>
+            <c:if test="${sessionScope.user_login_permission==null}">
+                <div class="un_login">还未登录！<a href="${path}/login.jsp" style="color:#ff4e00;">马上登录</a> 查看购物车！
+                </div>
+            </c:if>
             <!--End 购物车未登录 End-->
             <!--Begin 购物车已登录 Begin-->
             <ul class="cars">
@@ -142,11 +151,11 @@ To change this template use File | Settings | File Templates.
                 </c:forEach>
             </ul>
             <div class="price_sum">共计&nbsp; <font color="#ff4e00">￥</font><span>${sum}</span></div>
-            <c:if test="${user_login_permission==null}">
-                <div class="price_a"><a href="login.jsp">去登录</a></div>
+            <c:if test="${sessionScope.user_login_permission==null}">
+                <div class="price_a"><a href="${path}/login.jsp">马上登录</a></div>
             </c:if>
-            <c:if test="${user_login_permission!=null}">
-                <div class="price_a"><a href="#">去购物车结算</a></div>
+            <c:if test="${sessionScope.user_login_permission!=null}">
+                <div class="price_a"><a href="${path}/jsp/BuyCar.jsp">去购物车结算</a></div>
             </c:if>
             <!--End 购物车已登录 End-->
         </div>

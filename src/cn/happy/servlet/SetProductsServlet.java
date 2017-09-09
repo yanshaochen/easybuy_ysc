@@ -96,6 +96,7 @@ public class SetProductsServlet extends HttpServlet {
             if (param.get("ep_img") != null && !param.get("ep_img").equals("")) {
                 deleteExpiredFile(service, param.get("ep_id"));
             }
+            System.out.println(param.get("ep_description"));
             boolean flag = service.updateProduct(param);
             if (flag)
                 response.sendRedirect("/easybuy/AdminServlet/SetProductsServlet?action=show");

@@ -50,7 +50,7 @@ public class ProductDAOImpl extends BaseDAO implements IProductDAO {
      */
     @Override
     public List<Easybuy_product> getProductsByParentId(String epp_id) throws Exception {
-        String sql = "select ep_id,ep_name,ep_price,ep_img from easybuy_product where ep_delflag!=1 and ep_parent_id=? order by ep_intopbar desc limit 6;";
+        String sql = "select ep_id,ep_name,ep_img,ep_description,ep_title,ep_price,ep_brand,ep_stock from easybuy_product where ep_delflag!=1 and ep_parent_id=? order by ep_intopbar desc limit 6;";
         ResultSet resultSet = executeQuery(sql, epp_id);
         List<Easybuy_product> products = new SomeConverts().resultSetToGenerics(resultSet, Easybuy_product.class);
         resultSet.close();
@@ -153,12 +153,12 @@ public class ProductDAOImpl extends BaseDAO implements IProductDAO {
     @Override
     public boolean updateProduct(Map<String, String> param) throws Exception {
         if (param.get("ep_img") != null && !param.get("ep_img").equals("")) {
-            String sql = "update easybuy_product set ep_name=?,ep_img=?,ep_title=?,ep_price=?,ep_brand=?,ep_parent_id=?,ep_category_id=?,ep_child_id=?,ep_stock=? where ep_id=?;";
-            int count = executeUpdate(sql, param.get("ep_name"), param.get("ep_img"), param.get("ep_title"), param.get("ep_price"), param.get("ep_brand"), param.get("ep_parent_id"), param.get("ep_category_id"), param.get("ep_child_id"), param.get("ep_stock"), param.get("ep_id"));
+            String sql = "update easybuy_product set ep_name=?,ep_img=?,ep_title=?,ep_description=?,ep_price=?,ep_brand=?,ep_parent_id=?,ep_category_id=?,ep_child_id=?,ep_stock=? where ep_id=?;";
+            int count = executeUpdate(sql, param.get("ep_name"), param.get("ep_img"), param.get("ep_title"), param.get("ep_description"), param.get("ep_price"), param.get("ep_brand"), param.get("ep_parent_id"), param.get("ep_category_id"), param.get("ep_child_id"), param.get("ep_stock"), param.get("ep_id"));
             return count > 0;
         } else {
-            String sql = "update easybuy_product set ep_name=?,ep_title=?,ep_price=?,ep_brand=?,ep_parent_id=?,ep_category_id=?,ep_child_id=?,ep_stock=? where ep_id=?;";
-            int count = executeUpdate(sql, param.get("ep_name"), param.get("ep_title"), param.get("ep_price"), param.get("ep_brand"), param.get("ep_parent_id"), param.get("ep_category_id"), param.get("ep_child_id"), param.get("ep_stock"), param.get("ep_id"));
+            String sql = "update easybuy_product set ep_name=?,ep_title=?,ep_description=?,ep_price=?,ep_brand=?,ep_parent_id=?,ep_category_id=?,ep_child_id=?,ep_stock=? where ep_id=?;";
+            int count = executeUpdate(sql, param.get("ep_name"), param.get("ep_title"), param.get("ep_description"), param.get("ep_price"), param.get("ep_brand"), param.get("ep_parent_id"), param.get("ep_category_id"), param.get("ep_child_id"), param.get("ep_stock"), param.get("ep_id"));
             return count > 0;
         }
     }
@@ -176,8 +176,8 @@ public class ProductDAOImpl extends BaseDAO implements IProductDAO {
 
     @Override
     public boolean addProduct(Map<String, String> param) throws Exception {
-        String sql = "insert into easybuy_product (ep_name,ep_img,ep_title,ep_price,ep_brand,ep_parent_id,ep_category_id,ep_child_id,ep_stock) values(?,?,?,?,?,?,?,?,?);";
-        int count = executeUpdate(sql, param.get("ep_name"), param.get("ep_img"), param.get("ep_title"), param.get("ep_price"), param.get("ep_brand"), param.get("ep_parent_id"), param.get("ep_category_id"), param.get("ep_child_id"), param.get("ep_stock"));
+        String sql = "insert into easybuy_product (ep_name,ep_img,ep_title,ep_description,ep_price,ep_brand,ep_parent_id,ep_category_id,ep_child_id,ep_stock) values(?,?,?,?,?,?,?,?,?,?);";
+        int count = executeUpdate(sql, param.get("ep_name"), param.get("ep_img"), param.get("ep_title"), param.get("ep_description"), param.get("ep_price"), param.get("ep_brand"), param.get("ep_parent_id"), param.get("ep_category_id"), param.get("ep_child_id"), param.get("ep_stock"));
         return count > 0;
     }
 

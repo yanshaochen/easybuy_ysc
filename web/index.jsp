@@ -126,7 +126,7 @@
     </div>
 </div>
 <div class="top">
-    <div class="logo"><a href="Index.html"><img src="${path}/images/logo.png"/></a></div>
+    <div class="logo"><a href="${path}/UserServlet/ProductServlet"><img src="${path}/images/logo.png"/></a></div>
     <div class="search">
         <form>
             <input type="text" value="" class="s_ipt"/>
@@ -157,7 +157,12 @@
                 </c:forEach>
             </ul>
             <div class="price_sum">共计&nbsp; <font color="#ff4e00">￥</font><span>${sum}</span></div>
-            <div class="price_a"><a href="#">去购物车结算</a></div>
+            <c:if test="${sessionScope.user_login_permission==null}">
+                <div class="price_a"><a href="${path}/login.jsp">马上登录</a></div>
+            </c:if>
+            <c:if test="${sessionScope.user_login_permission!=null}">
+                <div class="price_a"><a href="${path}/jsp/BuyCar.jsp">去购物车结算</a></div>
+            </c:if>
             <!--End 购物车已登录 End-->
         </div>
     </div>

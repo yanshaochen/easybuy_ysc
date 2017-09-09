@@ -1,11 +1,9 @@
 package cn.happy.util;
 
-import cn.happy.bean.Easybuy_product_category;
 import com.google.gson.Gson;
 import org.apache.commons.fileupload.FileItem;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
@@ -85,8 +83,9 @@ public class SomeConverts {
             } else {
                 Random random = new Random();
                 String s = String.valueOf(random.nextInt(9999) % (9000) + 1000);
-                System.out.println(item.getName());
-                //upload empty or not
+                //if the image not upload,item.getName=""
+                //System.out.println(item.getFieldName()+"----->"+item.getName());
+                //upload not empty
                 if (item.getName() != null && !item.getName().equals("")) {
                     fileName = String.valueOf(System.currentTimeMillis()) + s + item.getName().substring(item.getName().lastIndexOf("."));
                     leftPath = servletContext.getRealPath("/images/");
@@ -98,7 +97,7 @@ public class SomeConverts {
                         e.printStackTrace();
                     }
                 } else
-                    param.put(item.getFieldName(), null);
+                    param.put(item.getFieldName(), null);//upload empty
             }
         }
         return param;

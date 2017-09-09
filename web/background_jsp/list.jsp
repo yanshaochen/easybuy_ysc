@@ -75,7 +75,7 @@
             <th width="100" style="text-align:left; padding-left:20px;">ID</th>
             <th width="10%">名称</th>
             <th>图片</th>
-            <th>标题</th>
+            <th>描述</th>
             <th>价格</th>
             <th>品牌</th>
             <th>一级分类</th>
@@ -127,6 +127,16 @@
                 </div>
                 <div class="field">
                     <input type="text" class="input w50" name="ep_title" value=""
+                           data-validate="required:请输入标题"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>描述：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="ep_description" value=""
                            data-validate="required:请输入标题"/>
                     <div class="tips"></div>
                 </div>
@@ -239,6 +249,16 @@
                 </div>
                 <div class="field">
                     <input id="ep_title" type="text" class="input w50" name="ep_title" value=""
+                           data-validate="required:请输入标题"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>描述：</label>
+                </div>
+                <div class="field">
+                    <input id="ep_description" type="text" class="input w50" name="ep_description" value=""
                            data-validate="required:请输入标题"/>
                     <div class="tips"></div>
                 </div>
@@ -404,7 +424,7 @@
                     '    value=""/>' + dom.ep_id + '</td>                                                                        ' +
                     '        <td>' + dom.ep_name + '</td>                   ' +
                     '        <td width="10%"><img src="${path}/images/' + dom.ep_img + '" alt="" width="70" height="50"/></td>   ' +
-                    '        <td>' + dom.ep_title + '</td>                                                                       ' +
+                    '        <td>' + dom.ep_description + '</td>                                                                       ' +
                     '       <td>' + dom.ep_price + '</td>                                                                        ' +
                     '       <td>' + dom.ep_brand + '</td>                                                                        ' +
                     '       <td>' + dom.epp_name + '</td>                                                                        ' +
@@ -470,6 +490,7 @@
         $("#update").val(ep_id);
         var ep_name;
         var ep_title;
+        var ep_description;
         var ep_price;
         var ep_brand;
         var ep_stock;
@@ -480,6 +501,7 @@
         $.getJSON("${path}/AdminServlet/AjaxGetProductByIdServlet", {"ep_id": ep_id}, function (result) {
             ep_name = result.product.ep_name;
             ep_title = result.product.ep_title;
+            ep_description = result.product.ep_description;
             ep_price = result.product.ep_price;
             ep_brand = result.product.ep_brand;
             ep_stock = result.product.ep_stock;
@@ -488,6 +510,7 @@
             ep_child_id = result.product.ep_child_id;
             $("#ep_name").val(ep_name);
             $("#ep_title").val(ep_title);
+            $("#ep_description").val(ep_description);
             $("#ep_price").val(ep_price);
             $("#ep_brand").val(ep_brand);
             $("#ep_stock").val(ep_stock);

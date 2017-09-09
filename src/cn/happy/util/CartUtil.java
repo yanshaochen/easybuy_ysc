@@ -24,17 +24,17 @@ public class CartUtil implements Serializable {
 
     public class CartSub implements Serializable {
 
-        private Easybuy_user user;
+        private Long esc_id;
         private Easybuy_product product;
         private int esc_quantity;
         private double totalPrice;
 
-        public Easybuy_user getUser() {
-            return user;
+        public Long getEsc_id() {
+            return esc_id;
         }
 
-        public void setUser(Easybuy_user user) {
-            this.user = user;
+        public void setEsc_id(Long esc_id) {
+            this.esc_id = esc_id;
         }
 
         public Easybuy_product getProduct() {

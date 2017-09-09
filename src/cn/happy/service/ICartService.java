@@ -16,4 +16,8 @@ public interface ICartService {
     boolean setCartByUser(Long eu_id, CartUtil cartUtil);
 
     void merge(CartUtil cartUtilDB, CartUtil cartUtil);
+
+    boolean updateCartByIdAndQuantity(long esc_id, int esc_quantity);
+
+    boolean deleteCartById(long esc_id);
 }

@@ -1,5 +1,6 @@
 package cn.happy.filter;
 
+import cn.happy.bean.Easybuy_user;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
@@ -33,7 +34,7 @@ public class UserLoginFilter implements Filter {
             chain.doFilter(req, resp);
             return;
         }
-        String login_permission = (String) request.getSession().getAttribute("user_login_permission");
+        Easybuy_user login_permission = (Easybuy_user) request.getSession().getAttribute("user_login_permission");
         logger.debug("the user permission is: " + login_permission);
         if (login_permission != null) {
             chain.doFilter(req, resp);
