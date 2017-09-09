@@ -138,7 +138,7 @@
         <div class="car_bg">
             <!--Begin 购物车未登录 Begin-->
             <c:if test="${sessionScope.user_login_permission==null}">
-                <div class="un_login">还未登录！<a href="${path}/Login?action=toLogin" style="color:#ff4e00;">马上登录</a> 查看购物车！
+                <div class="un_login">还未登录！<a href="${path}/login.jsp" style="color:#ff4e00;">马上登录</a> 查看购物车！
                 </div>
             </c:if>
             <!--End 购物车未登录 End-->
@@ -220,7 +220,7 @@
         </div>
         <!--End 商品分类详情 End-->
         <ul class="menu_r">
-            <li><a href="#">首页</a></li>
+            <li><a href="${path}/UserServlet/ProductServlet">首页</a></li>
             <c:forEach var="parentUtil" items="${parentUtils}">
                 <li><a href="#">${parentUtil.product_parent.epp_name}</a></li>
             </c:forEach>

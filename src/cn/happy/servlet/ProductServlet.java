@@ -3,10 +3,13 @@ package cn.happy.servlet;
 //import cn.happy.bean.Easybuy_product;
 import cn.happy.bean.Easybuy_product;
 import cn.happy.bean.Easybuy_slider;
+import cn.happy.bean.Easybuy_user;
+import cn.happy.service.ICartService;
 import cn.happy.service.ICategoryService;
 //import cn.happy.service.IProductService;
 import cn.happy.service.IProductService;
 import cn.happy.service.ISliderService;
+import cn.happy.service.impl.CartServiceImpl;
 import cn.happy.service.impl.CategoryServiceImpl;
 //import cn.happy.service.impl.ProductServiceImpl;
 import cn.happy.service.impl.ProductServiceImpl;
@@ -38,7 +41,12 @@ public class ProductServlet extends HttpServlet {
         //show category
         ICategoryService categoryService = new CategoryServiceImpl();
         List<ParentUtil> parentUtils = categoryService.getParentUtils();
-        request.setAttribute("parentUtils", parentUtils);
+        if (request.getSession().getAttribute("parentUtils") == null) {
+            request.getSession().setAttribute("parentUtils", parentUtils);
+        } else {
+            request.getSession().removeAttribute("parentUtils");
+            request.getSession().setAttribute("parentUtils", parentUtils);
+        }
         //show top10 and limit,aborted
         /*IProductService productService = new ProductServiceImpl();
         List<Easybuy_product> top10 = productService.getTop10();
@@ -57,22 +65,27 @@ public class ProductServlet extends HttpServlet {
         ISliderService sliderService = new SliderServiceImpl();
         List<Easybuy_slider> sliders = sliderService.getSliders();
         request.setAttribute("sliders", sliders);
-        //session and cookie
-        if (request.getSession().getAttribute("cartUtil") == null) {
-            Cookie cookie = null;
-            response.setContentType("text/plain");
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (Cookie item : cookies) {
-                    if (item.getName().equals("username"))
-                        cookie = item;
+        //login
+        Easybuy_user user = (Easybuy_user) request.getSession().getAttribute("user_login_permission");
+        CartUtil cartUtil1 = (CartUtil) request.getSession().getAttribute("cartUtil");
+        if (user == null) {
+            //not logged in
+            if (cartUtil1 == null) {
+                Cookie cookie = null;
+                response.setContentType("text/plain");
+                Cookie[] cookies = request.getCookies();
+                if (cookies != null) {
+                    for (Cookie item : cookies) {
+                        if (item.getName().equals("username"))
+                            cookie = item;
+                    }
                 }
-            }
-            if (cookie != null) {
-                Gson gson = new Gson();
-                CartUtil cartUtil = gson.fromJson((String) mc.get(cookie.getValue()), CartUtil.class);
-                if (cartUtil != null) {
-                    request.getSession().setAttribute("cartUtil", cartUtil);
+                if (cookie != null) {
+                    Gson gson = new Gson();
+                    CartUtil cartUtil = gson.fromJson((String) mc.get(cookie.getValue()), CartUtil.class);
+                    if (cartUtil != null) {
+                        request.getSession().setAttribute("cartUtil", cartUtil);
+                    }
                 }
             }
         }

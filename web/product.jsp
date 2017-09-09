@@ -107,7 +107,8 @@ To change this template use File | Settings | File Templates.
         </span>
         <!--End 所在收货地区 End-->
         <span class="fr">
-        	<span class="fl">你好，请<a href="Login.html">登录</a>&nbsp; <a href="Regist.html" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a
+        	<span class="fl">你好，请<a href="${path}/login.jsp">登录</a>&nbsp; <a href="${path}/regist.jsp"
+                                                                             style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a
                     href="#">我的订单</a>&nbsp;|</span>
         </span>
     </div>
@@ -141,7 +142,12 @@ To change this template use File | Settings | File Templates.
                 </c:forEach>
             </ul>
             <div class="price_sum">共计&nbsp; <font color="#ff4e00">￥</font><span>${sum}</span></div>
-            <div class="price_a"><a href="#">去购物车结算</a></div>
+            <c:if test="${user_login_permission==null}">
+                <div class="price_a"><a href="login.jsp">去登录</a></div>
+            </c:if>
+            <c:if test="${user_login_permission!=null}">
+                <div class="price_a"><a href="#">去购物车结算</a></div>
+            </c:if>
             <!--End 购物车已登录 End-->
         </div>
     </div>
@@ -185,14 +191,11 @@ To change this template use File | Settings | File Templates.
         </div>
         <!--End 商品分类详情 End-->
         <ul class="menu_r">
-            <li><a href="${path}/Index.html">首页</a></li>
-            <li><a href="${path}/Food.html">美食</a></li>
-            <li><a href="${path}/Fresh.html">生鲜</a></li>
-            <li><a href="${path}/HomeDecoration.html">家居</a></li>
-            <li><a href="${path}/SuitDress.html">女装</a></li>
-            <li><a href="${path}/MakeUp.html">美妆</a></li>
-            <li><a href="${path}/Digital.html">数码</a></li>
-            <li><a href="${path}/GroupBuying.html">团购</a></li>
+            <li><a href="${path}/UserServlet/ProductServlet">首页</a></li>
+            <c:forEach var="parentUtil" items="${parentUtils}">
+                <li><a href="#">${parentUtil.product_parent.epp_name}</a></li>
+            </c:forEach>
+            <li><a href="#">团购</a></li>
         </ul>
         <div class="m_ad">中秋送好礼！</div>
     </div>

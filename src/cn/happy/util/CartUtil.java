@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ *
  * Created by master on 17-9-7.
  */
 public class CartUtil implements Serializable {
